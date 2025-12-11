@@ -22,7 +22,6 @@
                     </h3>
                     
                     <form action="{{ route('portfolio') }}" method="GET" class="space-y-6">
-                        
                         <div>
                             <label class="text-xs uppercase tracking-widest text-gray-500 mb-2 block">Localização / Palavra-chave</label>
                             <input type="text" name="location" value="{{ request('location') }}" placeholder="Ex: Cascais, Piscina..." 
@@ -83,7 +82,6 @@
             <div class="lg:col-span-3">
                 <div class="flex justify-between items-center mb-8">
                     <p class="text-gray-500 text-sm">{{ $properties->total() }} imóveis encontrados</p>
-                    
                     <div class="hidden md:block text-xs uppercase tracking-widest text-gray-400">
                         Ordenação: Mais Recentes
                     </div>
@@ -91,7 +89,7 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     @forelse($properties as $property)
-                        <div class="group bg-white border border-gray-100 hover:shadow-lg transition-all duration-300">
+                        <a href="{{ route('properties.show', $property) }}" class="group bg-white border border-gray-100 hover:shadow-lg transition-all duration-300 block">
                             <div class="relative h-64 overflow-hidden bg-gray-200">
                                 <img src="{{ $property->cover_image ? asset('storage/' . $property->cover_image) : asset('img/porto.jpg') }}" 
                                      alt="{{ $property->title }}" 
@@ -113,7 +111,7 @@
                                         <span class="flex items-center gap-1"><i class="text-brand-gold">🛏</i> {{ $property->bedrooms }}</span>
                                     @endif
                                     @if($property->area_gross)
-                                        <span class="flex items-center gap-1"><i class="text-brand-gold">📐</i> {{ $property->area_gross }} m²</span>
+                                        <span class="flex items-center gap-1"><i class="text-brand-gold">📐</i> {{ number_format($property->area_gross, 0) }} m²</span>
                                     @endif
                                 </div>
                                 <div class="mt-4 pt-2">
@@ -122,7 +120,7 @@
                                     </p>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                     @empty
                         <div class="col-span-3 text-center py-20 bg-white border border-gray-100">
                             <p class="text-gray-400 text-lg font-serif italic mb-4">Nenhum imóvel encontrado com estes critérios.</p>
@@ -135,7 +133,6 @@
                     {{ $properties->links() }}
                 </div>
             </div>
-
         </div>
     </div>
 </section>

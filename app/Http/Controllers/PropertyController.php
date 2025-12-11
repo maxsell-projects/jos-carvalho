@@ -88,7 +88,7 @@ class PropertyController extends Controller
 
     public function publicIndex(Request $request)
     {
-        $query = Property::where('is_visible', true);
+        $query = Property::with('images')->where('is_visible', true);
 
         if ($request->filled('location')) {
             $search = $request->location;
@@ -126,5 +126,11 @@ class PropertyController extends Controller
         $properties = $query->latest()->paginate(9)->withQueryString();
 
         return view('properties.index', compact('properties'));
+    }
+
+    public function show(Property $property)
+    {
+        $property->load('images');
+        return view('properties.show', compact('property'));
     }
 }

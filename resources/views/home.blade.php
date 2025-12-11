@@ -13,14 +13,14 @@
             Elegância & <br> <span class="italic text-brand-gold">Exclusividade</span>
         </h1>
 
-        <div class="mt-16 inline-flex flex-col md:flex-row items-center border border-white/20 bg-black/30 backdrop-blur-md p-1 rounded-full">
-            <input type="text" placeholder="Localização..." 
-                   class="bg-transparent text-white placeholder-white/50 px-8 py-4 outline-none w-64 md:w-80 text-sm font-light rounded-full md:rounded-l-full md:rounded-r-none">
+        <form action="{{ route('portfolio') }}" method="GET" class="mt-16 inline-flex flex-col md:flex-row items-center border border-white/20 bg-black/30 backdrop-blur-md p-1 rounded-full">
+            <input type="text" name="location" placeholder="Localização, condomínio ou palavra-chave..." 
+                   class="bg-transparent text-white placeholder-white/50 px-8 py-4 outline-none w-64 md:w-96 text-sm font-light rounded-full md:rounded-l-full md:rounded-r-none">
             
-            <button class="bg-white text-black hover:bg-brand-gold hover:text-white transition-colors duration-500 px-10 py-4 text-[10px] uppercase tracking-widest font-bold rounded-full">
+            <button type="submit" class="bg-white text-black hover:bg-brand-gold hover:text-white transition-colors duration-500 px-10 py-4 text-[10px] uppercase tracking-widest font-bold rounded-full">
                 Buscar
             </button>
-        </div>
+        </form>
     </div>
 </section>
 
@@ -45,40 +45,43 @@
                 <h3 class="text-5xl font-serif text-brand-black mb-2">Coleção Privada</h3>
                 <p class="text-gray-500 text-xs uppercase tracking-widest">Seleção Curada</p>
             </div>
-            <a href="#" class="mt-6 md:mt-0 text-xs font-bold uppercase tracking-widest border border-black px-6 py-3 hover:bg-black hover:text-white transition duration-300">
+            <a href="{{ route('portfolio') }}" class="mt-6 md:mt-0 text-xs font-bold uppercase tracking-widest border border-black px-6 py-3 hover:bg-black hover:text-white transition duration-300">
                 Ver Portfólio Completo
             </a>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-16">
             @forelse($properties as $index => $property)
-                <div class="group cursor-pointer" data-aos="fade-up" data-aos-delay="{{ $index * 100 }}">
+                <a href="{{ route('properties.show', $property) }}" class="group block cursor-pointer" data-aos="fade-up" data-aos-delay="{{ $index * 100 }}">
                     <div class="relative h-[500px] overflow-hidden bg-gray-200 mb-6">
                         <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition duration-700 z-10"></div>
                         
-                        <img src="{{ $property->cover ? asset('storage/'.$property->cover->path) : asset('img/placeholder.jpg') }}" 
-                             onerror="this.onerror=null;this.src='{{ asset('img/placeholder.jpg') }}';"
+                        <img src="{{ $property->cover_image ? asset('storage/' . $property->cover_image) : asset('img/porto.jpg') }}" 
                              alt="{{ $property->title }}" 
                              class="w-full h-full object-cover transform scale-100 group-hover:scale-105 transition duration-[1.2s] ease-out grayscale-[20%] group-hover:grayscale-0">
                         
                         <div class="absolute top-0 left-0 bg-black text-white text-[9px] uppercase tracking-widest px-4 py-3">
                             {{ $property->type }}
                         </div>
+                        
+                        <div class="absolute bottom-4 right-4 bg-white/90 backdrop-blur text-brand-black text-[9px] uppercase tracking-widest px-3 py-1 font-bold">
+                            {{ $property->status }}
+                        </div>
                     </div>
 
                     <div class="pr-4">
                         <div class="flex items-center gap-3 text-gray-500 text-[10px] uppercase tracking-widest mb-3 border-b border-gray-300 pb-3">
-                            <span>{{ $property->address ?? 'Consulte' }}</span>
-                            <span class="ml-auto">{{ $property->area ?? 0 }} m²</span>
+                            <span>{{ $property->location ?? 'Portugal' }}</span>
+                            <span class="ml-auto">{{ $property->area_gross ? number_format($property->area_gross, 0) . ' m²' : '' }}</span>
                         </div>
                         <h4 class="text-2xl font-serif text-brand-black mb-2 leading-tight group-hover:underline decoration-1 underline-offset-4">
                             {{ $property->title }}
                         </h4>
                         <p class="text-xl font-light text-gray-600">
-                            € {{ number_format($property->price, 0, ',', '.') }}
+                            {{ $property->price ? '€ ' . number_format($property->price, 0, ',', '.') : 'Sob Consulta' }}
                         </p>
                     </div>
-                </div>
+                </a>
             @empty
                 <div class="col-span-3 text-center py-20 text-gray-400 font-serif italic">
                     Acervo em atualização.
@@ -90,7 +93,6 @@
 
 <section class="py-32 bg-white text-brand-black border-t border-gray-100">
     <div class="container mx-auto px-6 md:px-12">
-        
         <div class="text-center max-w-4xl mx-auto mb-20" data-aos="fade-up">
             <h3 class="text-4xl font-serif mb-6">Excelência, Exclusividade e Discrição: <br> A Visão de Diogo Maia</h3>
             <p class="text-gray-500 font-light leading-relaxed text-lg">
@@ -99,7 +101,6 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
-            
             <article class="group flex flex-col h-full" data-aos="fade-up" data-aos-delay="0">
                 <div class="h-64 overflow-hidden mb-6 bg-gray-100">
                     <img src="{{ asset('img/DiogoMaia2.jpg') }}" class="w-full h-full object-cover transition duration-700 group-hover:scale-105 grayscale group-hover:grayscale-0" alt="Investidor">
@@ -111,7 +112,7 @@
                         </a>
                     </h4>
                     <p class="text-sm text-gray-500 font-light leading-relaxed mb-6 flex-grow">
-                        O mercado de luxo está a mudar. Já não se define apenas pelo preço, pelo tamanho do imóvel ou pelo prestígio da localização. O verdadeiro investidor de luxo em 2025 procura algo mais profundo: estabilidade, privacidade...
+                        O mercado de luxo está a mudar. Já não se define apenas pelo preço, pelo tamanho do imóvel ou pelo prestígio da localização. O verdadeiro investidor de luxo em 2025 procura algo mais profundo...
                     </p>
                     <a href="{{ route('blog.show') }}" class="text-[10px] uppercase tracking-widest font-bold hover:text-brand-gold mt-auto inline-block">Continuar Lendo »</a>
                 </div>
@@ -124,11 +125,11 @@
                 <div class="border-t border-black pt-6 flex-grow flex flex-col">
                     <h4 class="text-xl font-serif mt-3 mb-4 leading-snug group-hover:text-brand-gold transition">
                         <a href="{{ route('blog.show-intelligence') }}">
-                            Como a Inteligência de Mercado Redefine o Investimento Imobiliário de Alto Padrão
+                            Como a Inteligência de Mercado Redefine o Investimento Imobiliário
                         </a>
                     </h4>
                     <p class="text-sm text-gray-500 font-light leading-relaxed mb-6 flex-grow">
-                        O investimento imobiliário de luxo deixou de depender apenas da intuição ou da localização privilegiada. Atualmente, a diferença entre uma compra promissora e uma oportunidade perdida está na capacidade de interpretar dados e tendências. É aqui...
+                        O investimento imobiliário de luxo deixou de depender apenas da intuição ou da localização privilegiada. Atualmente, a diferença entre uma compra promissora e uma oportunidade perdida...
                     </p>
                     <a href="{{ route('blog.show-intelligence') }}" class="text-[10px] uppercase tracking-widest font-bold hover:text-brand-gold mt-auto inline-block">Continuar Lendo »</a>
                 </div>
@@ -140,17 +141,16 @@
                 </div>
                 <div class="border-t border-black pt-6 flex-grow flex flex-col">
                     <h4 class="text-xl font-serif mt-3 mb-4 leading-snug group-hover:text-brand-gold transition">
-                        <a href="#">
-                            Lisboa, Cascais e Algarve: Os Três Eixos de Valor do Imobiliário Premium em 2025
+                        <a href="{{ route('blog.show-locations') }}">
+                            Lisboa, Cascais e Algarve: Os Três Eixos de Valor em 2025
                         </a>
                     </h4>
                     <p class="text-sm text-gray-500 font-light leading-relaxed mb-6 flex-grow">
-                        O mercado imobiliário de luxo em Portugal vive uma fase de maturidade e expansão. Zonas como Lisboa, Cascais e Algarve destacam-se como três eixos de valor que sustentam o crescimento premium do país. A combinação entre...
+                        O mercado imobiliário de luxo em Portugal vive uma fase de maturidade e expansão. Zonas como Lisboa, Cascais e Algarve destacam-se como três eixos de valor...
                     </p>
-                    <a href="#" class="text-[10px] uppercase tracking-widest font-bold hover:text-brand-gold mt-auto inline-block">Continuar Lendo »</a>
+                    <a href="{{ route('blog.show-locations') }}" class="text-[10px] uppercase tracking-widest font-bold hover:text-brand-gold mt-auto inline-block">Continuar Lendo »</a>
                 </div>
             </article>
-
         </div>
     </div>
 </section>
@@ -158,13 +158,11 @@
 <section class="py-24 bg-brand-charcoal text-white relative">
     <div class="container mx-auto px-6 md:px-12">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            
             <div data-aos="fade-right">
                 <h3 class="text-3xl md:text-5xl font-serif mb-6">Entre em Contacto</h3>
                 <p class="text-gray-400 mb-10 text-lg font-light">
                     Estamos à disposição para apresentar as propriedades mais exclusivas ou discutir a gestão do seu património imobiliário.
                 </p>
-                
                 <div class="space-y-8">
                     <div class="flex items-center gap-6">
                         <div class="p-4 border border-white/20 rounded-full flex items-center justify-center">
@@ -177,7 +175,6 @@
                             <p class="text-xl font-serif">+351 912 345 678</p>
                         </div>
                     </div>
-
                     <div class="flex items-center gap-6">
                         <div class="p-4 border border-white/20 rounded-full flex items-center justify-center">
                             <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-brand-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -191,7 +188,6 @@
                     </div>
                 </div>
             </div>
-
             <form action="#" method="POST" class="space-y-6 bg-white/5 p-8 md:p-12 border border-white/10" data-aos="fade-left">
                 @csrf
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -212,7 +208,6 @@
                     <label class="text-[10px] uppercase tracking-widest text-gray-500">Mensagem</label>
                     <textarea name="message" rows="3" class="w-full bg-transparent border-b border-white/20 py-3 text-white focus:border-brand-gold focus:outline-none transition-colors resize-none" placeholder="Como podemos ajudar?"></textarea>
                 </div>
-                
                 <button type="submit" class="w-full bg-white text-black font-bold py-4 hover:bg-brand-gold hover:text-white transition-colors uppercase tracking-widest text-xs mt-4">
                     Enviar Mensagem
                 </button>

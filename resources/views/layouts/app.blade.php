@@ -8,7 +8,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
     
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-    
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <script>
@@ -30,6 +29,7 @@
         }
     </script>
     
+    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
     <style>
@@ -52,9 +52,7 @@
 
                 <div class="hidden md:flex items-center space-x-8">
                     <a href="{{ route('home') }}" class="text-xs uppercase tracking-[0.2em] text-white hover:text-brand-gold transition-colors {{ request()->routeIs('home') ? 'text-brand-gold' : '' }}">Home</a>
-                    
                     <a href="{{ route('about') }}" class="text-xs uppercase tracking-[0.2em] text-white hover:text-brand-gold transition-colors {{ request()->routeIs('about') ? 'text-brand-gold' : '' }}">Sobre</a>
-                    
                     <a href="{{ route('portfolio') }}" class="text-xs uppercase tracking-[0.2em] text-white hover:text-brand-gold transition-colors {{ request()->routeIs('portfolio') ? 'text-brand-gold' : '' }}">Imóveis</a>
                     
                     <div class="relative group">
@@ -64,18 +62,11 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                             </svg>
                         </button>
-                        
                         <div class="absolute left-1/2 -translate-x-1/2 top-full mt-0 w-56 bg-brand-charcoal border border-white/10 shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top pt-2">
                             <div class="bg-brand-charcoal py-2">
-                                <a href="{{ route('tools.credit') }}" class="block px-6 py-3 text-[10px] uppercase tracking-widest text-gray-300 hover:text-white hover:bg-white/5 transition-colors">
-                                    Simulador de Crédito
-                                </a>
-                                <a href="{{ route('tools.gains') }}" class="block px-6 py-3 text-[10px] uppercase tracking-widest text-gray-300 hover:text-white hover:bg-white/5 transition-colors">
-                                    Simulador Mais Valias
-                                </a>
-                                <a href="{{ route('tools.imt') }}" class="block px-6 py-3 text-[10px] uppercase tracking-widest text-gray-300 hover:text-white hover:bg-white/5 transition-colors">
-                                    Simulador IMT
-                                </a>
+                                <a href="{{ route('tools.credit') }}" class="block px-6 py-3 text-[10px] uppercase tracking-widest text-gray-300 hover:text-white hover:bg-white/5 transition-colors">Simulador de Crédito</a>
+                                <a href="{{ route('tools.gains') }}" class="block px-6 py-3 text-[10px] uppercase tracking-widest text-gray-300 hover:text-white hover:bg-white/5 transition-colors">Simulador Mais Valias</a>
+                                <a href="{{ route('tools.imt') }}" class="block px-6 py-3 text-[10px] uppercase tracking-widest text-gray-300 hover:text-white hover:bg-white/5 transition-colors">Simulador IMT</a>
                             </div>
                         </div>
                     </div>
@@ -145,7 +136,6 @@
                         <li><a href="{{ route('home') }}" class="hover:text-white transition">Home</a></li>
                         <li><a href="{{ route('about') }}" class="hover:text-white transition">Sobre</a></li>
                         <li><a href="{{ route('portfolio') }}" class="hover:text-white transition">Imóveis</a></li>
-                        <li><a href="{{ route('blog') }}" class="hover:text-white transition">Blog</a></li>
                     </ul>
                 </div>
                 <div>
@@ -159,12 +149,8 @@
                 <div>
                     <h5 class="text-xs font-bold uppercase tracking-widest mb-6 text-brand-gold">Social</h5>
                     <div class="flex justify-center md:justify-start gap-4">
-                        <a href="#" class="w-10 h-10 border border-white/20 rounded-full flex items-center justify-center hover:bg-white hover:text-black transition-all">
-                            IN
-                        </a>
-                        <a href="#" class="w-10 h-10 border border-white/20 rounded-full flex items-center justify-center hover:bg-white hover:text-black transition-all">
-                            IG
-                        </a>
+                        <a href="#" class="w-10 h-10 border border-white/20 rounded-full flex items-center justify-center hover:bg-white hover:text-black transition-all">IN</a>
+                        <a href="#" class="w-10 h-10 border border-white/20 rounded-full flex items-center justify-center hover:bg-white hover:text-black transition-all">IG</a>
                     </div>
                 </div>
             </div>
@@ -183,4 +169,4 @@
         });
     </script>
 </body>
-</html> 
+</html>

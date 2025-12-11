@@ -6,7 +6,7 @@ use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\PropertyController;
 
 Route::get('/', function () {
-    $properties = Property::latest()->take(3)->get(); 
+    $properties = Property::where('is_visible', true)->latest()->take(3)->get(); 
     return view('home', compact('properties'));
 })->name('home');
 
@@ -15,6 +15,7 @@ Route::get('/sobre', function () {
 })->name('about');
 
 Route::get('/imoveis', [PropertyController::class, 'publicIndex'])->name('portfolio');
+Route::get('/imoveis/{property:slug}', [PropertyController::class, 'show'])->name('properties.show');
 
 Route::get('/ferramentas/simulador-credito', function () {
     return "Simulador de Crédito (Em Breve)";
