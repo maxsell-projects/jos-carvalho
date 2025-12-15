@@ -2,275 +2,396 @@
 
 @section('content')
 
-<div class="bg-brand-black text-white py-24 text-center relative overflow-hidden">
+{{-- Cabeçalho --}}
+<div class="bg-brand-black text-white py-12 text-center relative overflow-hidden">
     <div class="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
     <div class="container mx-auto px-6 relative z-10">
-        <p class="text-brand-gold text-xs uppercase tracking-[0.4em] mb-4">Ferramentas Exclusivas</p>
-        <h1 class="text-3xl md:text-5xl font-serif">Simulador de Crédito Habitação</h1>
-        <p class="mt-4 text-gray-400 font-light max-w-2xl mx-auto">
-            Planeie o seu futuro com precisão. Calcule a sua prestação mensal, taxas de juro e viabilidade financeira com base nas taxas Euribor atuais.
-        </p>
+        <h1 class="text-3xl font-serif text-white">Simulador de Crédito Habitação</h1>
+        <p class="text-gray-400 text-sm mt-2 font-light">Calcule a sua prestação mensal com taxas Euribor atualizadas de 2025.</p>
     </div>
 </div>
 
-<section class="py-20 bg-neutral-50" 
-         x-data="creditCalculator()" 
-         x-init="calculate()">
-    
-    <div class="container mx-auto px-6 md:px-12 relative">
+<section class="py-12 bg-gray-50" x-data="creditCalculator()" x-init="calculate()">
+    <div class="container mx-auto px-4 md:px-8 max-w-6xl">
         
-        <div class="flex justify-end mb-6">
-            <button @click="showHelp = true" class="flex items-center gap-2 text-brand-gold text-xs uppercase tracking-widest font-bold hover:underline">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                Entenda as Taxas
-            </button>
-        </div>
-
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
             
-            {{-- COLUNA ESQUERDA: DADOS DO CRÉDITO --}}
-            <div class="lg:col-span-7 space-y-8">
+            {{-- ÁREA DO FORMULÁRIO --}}
+            <div class="lg:col-span-7 space-y-6">
                 
-                <div class="bg-white p-8 rounded shadow-sm border border-gray-100">
-                    <h3 class="text-lg font-serif mb-6 text-brand-black flex items-center gap-2">
-                        <span class="bg-brand-gold text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-sans">1</span>
-                        Dados do Financiamento
+                {{-- 1. Dados do Imóvel e Financiamento --}}
+                <div class="bg-white p-6 md:p-8 rounded-xl shadow-sm border border-gray-100">
+                    <h3 class="text-lg font-bold text-gray-800 mb-6 border-b pb-2 flex items-center gap-2">
+                        <span class="bg-brand-gold text-white w-6 h-6 rounded-full flex items-center justify-center text-xs">1</span>
+                        Valores e Prazos
                     </h3>
                     
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                        <div>
-                            <label class="block text-xs uppercase tracking-widest text-gray-500 mb-2">Valor do Imóvel (€)</label>
-                            <input type="number" x-model.number="propertyValue" @input="calculate()" class="w-full border border-gray-200 rounded px-4 py-3 focus:outline-none focus:border-brand-gold transition-colors" placeholder="350000">
-                        </div>
-                        <div>
-                            <label class="block text-xs uppercase tracking-widest text-gray-500 mb-2">Entrada Inicial (€)</label>
-                            <input type="number" x-model.number="downPayment" @input="calculate()" class="w-full border border-gray-200 rounded px-4 py-3 focus:outline-none focus:border-brand-gold transition-colors" placeholder="35000">
-                            <p class="text-[10px] text-gray-400 mt-1" x-show="percentage < 10"><span class="text-red-500">Atenção:</span> Mínimo recomendado de 10%.</p>
-                        </div>
-                    </div>
+                    <div class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            {{-- Valor do Imóvel --}}
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-gray-500 mb-2">Valor do Imóvel (€)</label>
+                                <input type="number" x-model.number="propertyValue" @input="updateLoanAmount()" class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:border-brand-gold text-lg font-medium">
+                            </div>
 
-                    <div class="mb-6">
-                        <label class="block text-xs uppercase tracking-widest text-gray-500 mb-2">Prazo (Anos)</label>
-                        <input type="range" x-model.number="years" @input="calculate()" min="10" max="40" step="1" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-brand-gold">
-                        <div class="flex justify-between text-xs text-gray-400 mt-2">
-                            <span>10 Anos</span>
-                            <span class="font-bold text-brand-gold" x-text="years + ' Anos'"></span>
-                            <span>40 Anos</span>
+                            {{-- Entrada Inicial --}}
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-gray-500 mb-2">Entrada Inicial (€)</label>
+                                <input type="number" x-model.number="downPayment" @input="updateLoanAmount()" class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:border-brand-gold text-lg font-medium">
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        {{-- Montante de Empréstimo (Auto-calculado) --}}
+                        <div class="bg-blue-50 p-4 rounded-lg border border-blue-100 flex justify-between items-center">
+                            <div>
+                                <span class="block text-xs font-bold text-blue-800 uppercase">Montante a Financiar</span>
+                                <span class="text-xs text-blue-600" x-text="'LTV: ' + ltv.toFixed(1) + '%'"></span>
+                            </div>
+                            <div class="text-2xl font-bold text-blue-900">
+                                <span x-text="formatMoney(loanAmount)"></span> €
+                            </div>
+                        </div>
+                        <div x-show="ltv > 90" class="text-red-500 text-xs font-bold">
+                            ⚠️ Atenção: O financiamento máximo para HPP é geralmente 90%.
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            {{-- Prazo --}}
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-gray-500 mb-2">Prazo (Anos)</label>
+                                <select x-model.number="years" @change="calculate()" class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:border-brand-gold">
+                                    @foreach(range(40, 5) as $y)
+                                        <option value="{{ $y }}">{{ $y }} Anos ({{ $y * 12 }} meses)</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            
+                            {{-- Idade do Titular Mais Velho --}}
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-gray-500 mb-2">Idade (+ Velho)</label>
+                                <input type="number" x-model.number="age" @input="checkMaxTerm()" class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:border-brand-gold" placeholder="Ex: 35">
+                            </div>
+                        </div>
+                        <div x-show="ageWarning" class="text-amber-600 text-xs font-bold" x-text="ageWarning"></div>
+
+                    </div>
+                </div>
+
+                {{-- 2. Taxas de Juro --}}
+                <div class="bg-white p-6 md:p-8 rounded-xl shadow-sm border border-gray-100">
+                    <h3 class="text-lg font-bold text-gray-800 mb-6 border-b pb-2 flex items-center gap-2">
+                        <span class="bg-brand-gold text-white w-6 h-6 rounded-full flex items-center justify-center text-xs">2</span>
+                        Taxas de Juro (Euribor + Spread)
+                    </h3>
+
+                    <div class="space-y-6">
+                        
+                        {{-- Tipo de Taxa --}}
                         <div>
-                            <label class="block text-xs uppercase tracking-widest text-gray-500 mb-2">Euribor</label>
-                            <select x-model.number="euriborRate" @change="calculate()" class="w-full border border-gray-200 rounded px-4 py-3 bg-white focus:outline-none focus:border-brand-gold">
-                                <option value="2.168">6 Meses (2.168%)</option>
-                                <option value="2.088">3 Meses (2.088%)</option>
-                                <option value="2.268">12 Meses (2.268%)</option>
-                                <option value="3.0">Taxa Fixa (3.0%)</option>
+                            <label class="block text-xs font-bold uppercase text-gray-500 mb-3">Tipo de Taxa</label>
+                            <div class="flex gap-4">
+                                <label class="cursor-pointer flex-1">
+                                    <input type="radio" name="rateType" value="variable" x-model="rateType" @change="calculate()" class="peer sr-only">
+                                    <div class="p-3 rounded border border-gray-200 peer-checked:border-brand-gold peer-checked:bg-brand-gold/10 peer-checked:text-brand-black hover:bg-gray-50 transition-all text-center text-sm font-bold">
+                                        Variável
+                                    </div>
+                                </label>
+                                <label class="cursor-pointer flex-1">
+                                    <input type="radio" name="rateType" value="fixed" x-model="rateType" @change="calculate()" class="peer sr-only">
+                                    <div class="p-3 rounded border border-gray-200 peer-checked:border-brand-gold peer-checked:bg-brand-gold/10 peer-checked:text-brand-black hover:bg-gray-50 transition-all text-center text-sm font-bold">
+                                        Fixa
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+
+                        {{-- Seleção Euribor (Se Variável) --}}
+                        <div x-show="rateType === 'variable'" x-transition>
+                            <label class="block text-xs font-bold uppercase text-gray-500 mb-2">Indexante (Euribor)</label>
+                            <select x-model.number="euriborRate" @change="calculate()" class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:border-brand-gold bg-gray-50">
+                                <option value="2.31">Euribor 12 Meses (2.31%)</option>
+                                <option value="2.17">Euribor 6 Meses (2.17%)</option>
+                                <option value="2.07">Euribor 3 Meses (2.07%)</option>
                             </select>
+                            <p class="text-[10px] text-gray-400 mt-1">*Valores referência de Dez/2025.</p>
+                        </div>
+
+                        {{-- Taxa Fixa Manual (Se Fixa) --}}
+                        <div x-show="rateType === 'fixed'" x-transition>
+                            <label class="block text-xs font-bold uppercase text-gray-500 mb-2">Taxa Fixa Anual (%)</label>
+                            <input type="number" step="0.01" x-model.number="fixedRate" @input="calculate()" class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:border-brand-gold" placeholder="Ex: 3.5">
+                        </div>
+
+                        {{-- Spread --}}
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-gray-500 mb-2">Spread (%)</label>
+                            <div class="relative">
+                                <input type="number" step="0.01" x-model.number="spread" @input="calculate()" class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:border-brand-gold" placeholder="Ex: 0.85">
+                                <span class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400">%</span>
+                            </div>
+                        </div>
+
+                        {{-- TAN Total --}}
+                        <div class="flex justify-between items-center border-t border-gray-100 pt-4">
+                            <span class="text-sm font-bold text-gray-600">TAN (Taxa Anual Nominal)</span>
+                            <span class="text-xl font-bold text-brand-black" x-text="tan.toFixed(3) + '%'"></span>
+                        </div>
+
+                    </div>
+                </div>
+
+                {{-- 3. Seguros (Opcional) --}}
+                <div class="bg-white p-6 md:p-8 rounded-xl shadow-sm border border-gray-100">
+                    <h3 class="text-lg font-bold text-gray-800 mb-6 border-b pb-2 flex items-center gap-2">
+                        <span class="bg-brand-gold text-white w-6 h-6 rounded-full flex items-center justify-center text-xs">3</span>
+                        Seguros Obrigatórios
+                    </h3>
+                    
+                    <div class="mb-4 flex items-center gap-2">
+                        <input type="checkbox" id="autoInsurance" x-model="autoInsurance" @change="calculate()" class="rounded text-brand-gold focus:ring-brand-gold">
+                        <label for="autoInsurance" class="text-sm text-gray-700">Calcular estimativa automática de seguros</label>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6" :class="{'opacity-50 pointer-events-none': autoInsurance}">
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-gray-500 mb-2">Seguro de Vida (€/mês)</label>
+                            <input type="number" step="0.01" x-model.number="lifeInsurance" @input="calculate()" class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:border-brand-gold">
                         </div>
                         <div>
-                            <label class="block text-xs uppercase tracking-widest text-gray-500 mb-2">Spread (%)</label>
-                            <input type="number" x-model.number="spread" @input="calculate()" step="0.1" class="w-full border border-gray-200 rounded px-4 py-3 focus:outline-none focus:border-brand-gold" placeholder="1.0">
+                            <label class="block text-xs font-bold uppercase text-gray-500 mb-2">Seguro Multirriscos (€/mês)</label>
+                            <input type="number" step="0.01" x-model.number="multiRiskInsurance" @input="calculate()" class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:border-brand-gold">
                         </div>
-                        <div>
-                            <label class="block text-xs uppercase tracking-widest text-gray-500 mb-2">TAN Global (%)</label>
-                            <div class="w-full bg-gray-50 border border-gray-200 rounded px-4 py-3 text-gray-500 cursor-not-allowed">
-                                <span x-text="(euriborRate + spread).toFixed(3)"></span> %
+                    </div>
+                </div>
+
+            </div>
+
+            {{-- ÁREA DE RESULTADOS (Sticky) --}}
+            <div class="lg:col-span-5" id="results-area">
+                <div class="sticky top-24 space-y-6">
+                    
+                    {{-- Cartão Principal: Mensalidade --}}
+                    <div class="bg-brand-charcoal text-white p-8 rounded-xl shadow-2xl relative overflow-hidden">
+                        <div class="absolute top-0 right-0 p-4 opacity-10">
+                            <svg class="w-24 h-24 text-brand-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                        </div>
+
+                        <h3 class="text-lg font-serif text-brand-gold mb-1">Prestação Mensal Estimada</h3>
+                        <div class="text-4xl font-bold mb-6">
+                            € <span x-text="formatMoney(monthlyTotal)"></span>
+                        </div>
+
+                        <div class="space-y-3 text-sm font-light border-t border-white/10 pt-4">
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Prestação Crédito (Capital + Juros)</span>
+                                <span>€ <span x-text="formatMoney(monthlyPayment)"></span></span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Imposto de Selo (Juros 4%)</span>
+                                <span>€ <span x-text="formatMoney(monthlyStampDuty)"></span></span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Seguros (Vida + Casa)</span>
+                                <span>€ <span x-text="formatMoney(totalInsurance)"></span></span>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="bg-white p-8 rounded shadow-sm border border-gray-100">
-                    <h3 class="text-lg font-serif mb-6 text-brand-black flex items-center gap-2">
-                        <span class="bg-brand-gold text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-sans">2</span>
-                        Análise de Viabilidade
-                    </h3>
-                    
-                    <div>
-                        <label class="block text-xs uppercase tracking-widest text-gray-500 mb-2">Rendimento Mensal Líquido do Agregado (€)</label>
-                        <input type="number" x-model.number="monthlyIncome" @input="calculate()" class="w-full border border-gray-200 rounded px-4 py-3 focus:outline-none focus:border-brand-gold" placeholder="Ex: 2500">
-                    </div>
-
-                    <div class="mt-6">
-                        <div class="flex justify-between text-xs uppercase tracking-widest mb-2">
-                            <span class="text-gray-500">Taxa de Esforço</span>
-                            <span :class="effortRate > 35 ? 'text-red-500 font-bold' : 'text-green-500 font-bold'" x-text="effortRate + '%'"></span>
+                    {{-- Cartão Secundário: Custos Iniciais e Totais --}}
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                        <h4 class="font-bold text-gray-800 mb-4 border-b pb-2">Custos Iniciais do Processo</h4>
+                        <div class="space-y-3 text-sm mb-6">
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">Entrada Inicial</span>
+                                <span class="font-medium">€ <span x-text="formatMoney(downPayment)"></span></span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">Imposto Selo Abertura (0.6%)</span>
+                                <span class="font-medium text-red-600">€ <span x-text="formatMoney(openingStampDuty)"></span></span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">Comissões Bancárias (Est.)</span>
+                                <span class="font-medium text-red-600">€ <span x-text="formatMoney(bankFees)"></span></span>
+                            </div>
+                            <div class="flex justify-between border-t border-gray-100 pt-2 font-bold">
+                                <span>Total Necessário (Cash)</span>
+                                <span>€ <span x-text="formatMoney(upfrontTotal)"></span></span>
+                            </div>
                         </div>
-                        <div class="w-full bg-gray-200 rounded-full h-2.5">
-                            <div class="h-2.5 rounded-full transition-all duration-500" 
-                                 :class="effortRate > 35 ? 'bg-red-500' : 'bg-green-500'" 
-                                 :style="'width: ' + Math.min(effortRate, 100) + '%'"></div>
-                        </div>
-                        <p class="text-[10px] text-gray-400 mt-2">
-                            <span x-show="effortRate <= 35">✅ Taxa saudável (Abaixo de 35%)</span>
-                            <span x-show="effortRate > 35 && effortRate <= 50">⚠️ Atenção: Taxa elevada (Entre 35% e 50%)</span>
-                            <span x-show="effortRate > 50">⛔ Risco: Dificuldade de aprovação (Acima de 50%)</span>
-                        </p>
-                    </div>
-                </div>
 
-            </div>
-
-            {{-- COLUNA DIREITA: RESULTADOS --}}
-            <div class="lg:col-span-5">
-                <div class="sticky top-32 bg-brand-charcoal text-white p-8 rounded shadow-2xl">
-                    <h3 class="text-xl font-serif mb-6 text-brand-gold">A Sua Prestação Mensal</h3>
-
-                    <div class="text-center mb-8">
-                        <p class="text-5xl font-serif text-white">€ <span x-text="formatMoney(monthlyPayment)"></span></p>
-                        <p class="text-xs uppercase tracking-widest text-gray-400 mt-2">+ Seguros (Est.) € <span x-text="formatMoney(insuranceCost)"></span></p>
-                    </div>
-
-                    <div class="space-y-4 text-sm font-light border-t border-white/10 pt-6">
-                        <div class="flex justify-between">
-                            <span class="text-gray-400">Montante Financiado</span>
-                            <span>€ <span x-text="formatMoney(loanAmount)"></span></span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span class="text-gray-400">Juros Totais Pagos</span>
-                            <span>€ <span x-text="formatMoney(totalInterest)"></span></span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span class="text-gray-400">MTIC (Montante Total)</span>
-                            <span class="font-bold text-brand-gold">€ <span x-text="formatMoney(totalAmount)"></span></span>
+                        <h4 class="font-bold text-gray-800 mb-4 border-b pb-2">Análise Financeira (Fim do Contrato)</h4>
+                        <div class="space-y-3 text-sm">
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">Capital Reembolsado</span>
+                                <span class="font-medium">€ <span x-text="formatMoney(loanAmount)"></span></span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">Total de Juros</span>
+                                <span class="font-medium text-orange-600">€ <span x-text="formatMoney(totalInterest)"></span></span>
+                            </div>
+                            <div class="flex justify-between border-t border-gray-100 pt-2">
+                                <span class="font-bold text-gray-800">MTIC (Custo Total Aproximado)</span>
+                                <span class="font-bold text-brand-black">€ <span x-text="formatMoney(mtic)"></span></span>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="mt-8 pt-6 border-t border-white/10 text-center">
-                        <p class="text-sm text-gray-300 mb-4">Gostou da simulação? Vamos avançar.</p>
-                        <div class="space-y-3">
-                            <a href="{{ route('contact') }}" class="block w-full bg-white text-brand-black font-bold uppercase tracking-widest py-4 text-xs hover:bg-brand-gold hover:text-white transition rounded">
-                                Pedir Proposta Bancária
-                            </a>
-                            <a href="{{ route('portfolio') }}" class="block w-full border border-white/20 text-white font-bold uppercase tracking-widest py-4 text-xs hover:bg-white hover:text-brand-black transition rounded">
-                                Ver Imóveis Compatíveis
-                            </a>
-                        </div>
+                    {{-- Botão CTA --}}
+                    <div class="text-center">
+                         <a href="{{ route('contact') }}" class="block w-full bg-brand-gold text-brand-black font-bold uppercase tracking-widest py-4 rounded-xl shadow-lg hover:bg-yellow-500 transition-all text-xs">
+                            Pedir Aprovação Bancária
+                        </a>
+                        <p class="text-[10px] text-gray-400 mt-2">Valores meramente indicativos. Não dispensa proposta oficial.</p>
                     </div>
+
                 </div>
             </div>
 
         </div>
     </div>
-
-    {{-- MODAL DE AJUDA --}}
-    <div x-show="showHelp" style="display: none;" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
-         x-transition:enter="transition ease-out duration-300"
-         x-transition:enter-start="opacity-0"
-         x-transition:enter-end="opacity-100"
-         x-transition:leave="transition ease-in duration-200"
-         x-transition:leave-start="opacity-100"
-         x-transition:leave-end="opacity-0">
-        
-        <div class="bg-white rounded-lg shadow-2xl w-full max-w-2xl overflow-hidden" @click.away="showHelp = false">
-            <div class="bg-brand-black text-white p-6 flex justify-between items-center">
-                <h3 class="text-xl font-serif">Entenda o Crédito Habitação</h3>
-                <button @click="showHelp = false" class="text-gray-400 hover:text-white">✕</button>
-            </div>
-            <div class="p-8 space-y-6 overflow-y-auto max-h-[70vh] text-gray-600">
-                
-                <div>
-                    <h4 class="font-bold text-brand-black mb-2">1. Euribor + Spread (TAN)</h4>
-                    <p class="text-sm">
-                        A prestação é calculada somando a taxa de referência europeia (Euribor) com o lucro do banco (Spread). Usamos as taxas Euribor atuais de 2025.
-                    </p>
-                </div>
-
-                <div>
-                    <h4 class="font-bold text-brand-black mb-2">2. Taxa de Esforço</h4>
-                    <p class="text-sm">
-                        O Banco de Portugal recomenda que as prestações de crédito não ultrapassem 35% a 50% do seu rendimento mensal líquido. Se o simulador mostrar a barra a vermelho, considere aumentar o prazo ou a entrada inicial.
-                    </p>
-                </div>
-
-                <div>
-                    <h4 class="font-bold text-brand-black mb-2">3. Seguros Obrigatórios</h4>
-                    <p class="text-sm">
-                        Além da prestação ao banco, terá de pagar Seguro de Vida e Seguro Multirriscos. O simulador estima um valor médio de mercado para estes custos, para que não tenha surpresas.
-                    </p>
-                </div>
-
-                <div>
-                    <h4 class="font-bold text-brand-black mb-2">4. Entradas Mínimas</h4>
-                    <p class="text-sm">
-                        Para Habitação Própria Permanente, os bancos financiam geralmente até 90% do valor. Isso significa que precisa de ter, pelo menos, 10% para a entrada inicial.
-                    </p>
-                </div>
-
-            </div>
-            <div class="p-6 border-t border-gray-100 bg-gray-50 text-right">
-                <button @click="showHelp = false" class="text-xs uppercase font-bold tracking-widest text-brand-gold hover:text-brand-black transition">Fechar</button>
-            </div>
-        </div>
-    </div>
-
 </section>
 
 <script>
     function creditCalculator() {
         return {
-            showHelp: false,
-            propertyValue: 350000,
-            downPayment: 35000,
+            propertyValue: 250000,
+            downPayment: 50000,
+            loanAmount: 200000,
             years: 30,
-            euriborRate: 2.168, // Taxa Euribor 6M Atualizada Dez 2025
-            spread: 1.0,
-            monthlyIncome: 2500,
+            age: 30,
+            rateType: 'variable', // variable, fixed
+            euriborRate: 2.17, // 6M Default
+            fixedRate: 3.5,
+            spread: 0.85,
+            tan: 0,
             
-            loanAmount: 0,
+            autoInsurance: true,
+            lifeInsurance: 0,
+            multiRiskInsurance: 0,
+            
+            // Outputs
             monthlyPayment: 0,
+            monthlyStampDuty: 0,
+            totalInsurance: 0,
+            monthlyTotal: 0,
+            
+            openingStampDuty: 0,
+            bankFees: 550, // Estimativa dossiê + avaliação
+            upfrontTotal: 0,
+            
             totalInterest: 0,
-            totalAmount: 0,
-            percentage: 0,
-            insuranceCost: 0,
-            effortRate: 0,
+            mtic: 0,
+            
+            ltv: 0,
+            ageWarning: '',
 
             formatMoney(value) {
                 return new Intl.NumberFormat('pt-PT', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(value);
             },
 
-            calculate() {
-                // 1. Montante do Empréstimo
+            updateLoanAmount() {
+                if (this.downPayment > this.propertyValue) this.downPayment = this.propertyValue;
                 this.loanAmount = this.propertyValue - this.downPayment;
-                if (this.loanAmount < 0) this.loanAmount = 0;
+                this.calculate();
+            },
 
-                // Percentual de Entrada
-                if (this.propertyValue > 0) {
-                    this.percentage = (this.downPayment / this.propertyValue) * 100;
+            checkMaxTerm() {
+                if (!this.age) {
+                    this.ageWarning = '';
+                    return;
+                }
+                const maxAge = 75;
+                const projectedAge = this.age + this.years;
+                
+                // Regras BP
+                let maxTermAllowed = 40;
+                if (this.age > 30 && this.age <= 35) maxTermAllowed = 37;
+                if (this.age > 35) maxTermAllowed = 35;
+
+                if (this.years > maxTermAllowed) {
+                    this.ageWarning = `Pela sua idade (${this.age} anos), o prazo máximo recomendado é de ${maxTermAllowed} anos.`;
+                } else if (projectedAge > maxAge) {
+                    this.ageWarning = `O crédito deve terminar antes dos 75 anos. Reduza o prazo para ${maxAge - this.age} anos.`;
                 } else {
-                    this.percentage = 0;
+                    this.ageWarning = '';
+                }
+            },
+
+            calculate() {
+                // 1. Validar LTV
+                if(this.propertyValue > 0) {
+                    this.ltv = (this.loanAmount / this.propertyValue) * 100;
+                } else {
+                    this.ltv = 0;
                 }
 
-                // 2. Taxa Mensal (TAN / 12)
-                let annualRate = (this.euriborRate + this.spread) / 100;
-                let monthlyRate = annualRate / 12;
-                let totalMonths = this.years * 12;
+                this.checkMaxTerm();
 
-                // 3. Fórmula Price (Sistema Francês)
-                if (monthlyRate > 0) {
-                    this.monthlyPayment = this.loanAmount * (monthlyRate * Math.pow(1 + monthlyRate, totalMonths)) / (Math.pow(1 + monthlyRate, totalMonths) - 1);
+                // 2. Definir Taxa Anual Nominal (TAN)
+                if (this.rateType === 'variable') {
+                    this.tan = this.euriborRate + this.spread;
                 } else {
-                    this.monthlyPayment = this.loanAmount / totalMonths;
+                    this.tan = this.fixedRate + this.spread; // Geralmente na fixa o spread já está embutido, mas deixamos somar para flexibilidade ou assume-se spread 0. Vamos somar.
+                    // Correção: Taxa Fixa contratada já é a taxa final. O spread é contabilístico.
+                    // Para simplificar simulador: Se Fixa, usa o valor do input FixedRate como TAN final (ou soma spread se o user quiser). 
+                    // Assumindo input = Taxa Final desejada (ex: 3.5%).
+                    this.tan = this.fixedRate; 
                 }
 
-                // 4. Totais
-                this.totalAmount = this.monthlyPayment * totalMonths;
-                this.totalInterest = this.totalAmount - this.loanAmount;
+                // 3. Cálculo da Prestação (PMT)
+                // i = taxa mensal
+                let i = (this.tan / 100) / 12;
+                let n = this.years * 12;
 
-                // 5. Estimativa de Seguros (Vida + Multirriscos)
-                // Estimativa conservadora: 0.04% do capital em dívida por mês (varia com idade)
-                this.insuranceCost = this.loanAmount * 0.00045; 
-
-                // 6. Taxa de Esforço
-                let totalMonthlyCost = this.monthlyPayment + this.insuranceCost;
-                if (this.monthlyIncome > 0) {
-                    this.effortRate = (totalMonthlyCost / this.monthlyIncome) * 100;
-                    this.effortRate = Math.round(this.effortRate * 10) / 10;
+                if (i === 0) {
+                    this.monthlyPayment = this.loanAmount / n;
                 } else {
-                    this.effortRate = 0;
+                    this.monthlyPayment = (this.loanAmount * i) / (1 - Math.pow(1 + i, -n));
                 }
+
+                // 4. Imposto de Selo Mensal sobre Juros (4%)
+                // No sistema francês, juros variam mês a mês. 
+                // Para uma "Prestação Média/Referência", calculamos sobre o 1º mês ou uma média?
+                // O simulador padrão mostra a 1ª prestação.
+                let firstMonthInterest = this.loanAmount * i;
+                this.monthlyStampDuty = firstMonthInterest * 0.04;
+
+                // 5. Seguros
+                if (this.autoInsurance) {
+                    // Estimativa Vida: ~0.035% do capital em dívida (média conservadora 30-40 anos)
+                    // Fator idade: aumentamos ligeiramente com a idade
+                    let lifeRate = 0.00035 + ((this.age - 30) * 0.00001); 
+                    if (lifeRate < 0.0002) lifeRate = 0.0002;
+                    
+                    this.lifeInsurance = this.loanAmount * lifeRate;
+
+                    // Estimativa Multirriscos: ~0.08% valor do imóvel / 12
+                    this.multiRiskInsurance = (this.propertyValue * 0.0008) / 12;
+                }
+                
+                this.totalInsurance = this.lifeInsurance + this.multiRiskInsurance;
+                this.monthlyTotal = this.monthlyPayment + this.monthlyStampDuty + this.totalInsurance;
+
+                // 6. Custos Iniciais
+                // IS Abertura: 0.6% (para prazos > 5 anos)
+                this.openingStampDuty = this.loanAmount * 0.006;
+                this.upfrontTotal = this.downPayment + this.openingStampDuty + this.bankFees;
+
+                // 7. Totais Finais (Aproximados - assumindo taxa constante)
+                let totalPayments = this.monthlyPayment * n;
+                this.totalInterest = totalPayments - this.loanAmount;
+                
+                // MTIC = Total Pagamentos + Seguros Totais + Custos Iniciais (IS Abertura + Comissões) + IS Juros Totais
+                // IS Juros Total = TotalInterest * 0.04
+                let totalStampOnInterest = this.totalInterest * 0.04;
+                let totalLife = this.lifeInsurance * n; // Simplificação (na realidade baixa com a amortização)
+                // Para MTIC ser mais real na Vida, assumimos média 50% do capital (regra de bolso rápida)
+                // Se for sistema decrecente, paga-se muito menos seguro no fim. Vamos ajustar para (VidaInicial * n) * 0.6
+                if(this.autoInsurance) totalLife = totalLife * 0.6; 
+
+                let totalMulti = this.multiRiskInsurance * n; // Constante
+
+                this.mtic = totalPayments + totalStampOnInterest + totalLife + totalMulti + this.openingStampDuty + this.bankFees;
             }
         }
     }
