@@ -386,7 +386,7 @@
                 }
 
                 let imtBaseNormal = 0;
-                let rateSelo = 0.008; 
+                let rateSelo = 0.008; // Taxa padrão do Imposto de Selo (0.8%)
                 let isHPP = this.purpose === 'hpp';
                 let isContinente = this.location === 'continente';
                 let imtBreakdownText = '';
@@ -400,7 +400,7 @@
                     imtBreakdownText = '6.5% (Taxa Única) sobre o valor total';
                 } else if (this.purpose === 'offshore_pessoal' || this.purpose === 'offshore_entidade') {
                     imtBaseNormal = valorTotal * 0.10;
-                    rateSelo = 0.10; 
+                    // rateSelo mantém 0.008 (0.8%) - Correção do erro anterior
                     imtBreakdownText = '10% (Taxa de Paraíso Fiscal) sobre o valor total';
                 } else {
                     let tabela = isHPP ? 
@@ -412,7 +412,7 @@
                     imtBreakdownText = isHPP ? 'Tabela Progressiva HPP Normal' : 'Tabela Progressiva Habitação Secundária';
                 }
 
-                // 2. Determinar IMT se fosse 100% Jovem (Apenas se HPP)
+                // 2. Determinar IMT e Selo se fosse 100% Jovem (Apenas se HPP)
                 let imtBaseJovem = imtBaseNormal;
                 let seloBaseJovem = valorTotal * rateSelo;
                 let isJovemBenefitApplied = false;
@@ -478,11 +478,11 @@
                     }
 
                     if (isEligible) {
-                        // Comprador Jovem paga a sua quota do IMT Jovem e Selo Jovem
+                        // Comprador Jovem paga a sua quota do IMT Jovem
                         finalIMT += (imtBaseJovem / buyers);
                         finalStamp += (seloBaseJovem / buyers);
                     } else {
-                        // Comprador Normal paga a sua quota do IMT Normal e Selo Normal
+                        // Comprador Normal paga a sua quota do IMT Normal
                         finalIMT += (imtBaseNormal / buyers);
                         finalStamp += ((valorTotal * rateSelo) / buyers);
                     }
