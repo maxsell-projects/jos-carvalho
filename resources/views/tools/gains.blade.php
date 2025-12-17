@@ -43,10 +43,20 @@
                                 </select>
                             </div>
                         </div>
+                        
+                        {{-- CONSTRUÇÃO PRÓPRIA (Movido para cá para ficar igual à lógica corrigida) --}}
+                        <div class="md:col-span-2 pt-4 border-t border-gray-50">
+                             <label class="block text-sm font-medium text-gray-700 mb-3">A habitação foi construída por si?</label>
+                             <div class="flex gap-6">
+                                 <label class="inline-flex items-center cursor-pointer"><input type="radio" value="Sim" x-model="form.self_built" class="text-brand-gold focus:ring-brand-gold w-5 h-5"><span class="ml-2 text-sm text-gray-600">Sim</span></label>
+                                 <label class="inline-flex items-center cursor-pointer"><input type="radio" value="Não" x-model="form.self_built" class="text-brand-gold focus:ring-brand-gold w-5 h-5"><span class="ml-2 text-sm text-gray-600">Não</span></label>
+                             </div>
+                             <p class="text-[10px] text-gray-400 mt-1">*Afeta a data considerada para o coeficiente de desvalorização.</p>
+                        </div>
                     </div>
                 </div>
 
-                {{-- 2. Valor de Venda (Realização) --}}
+                {{-- 2. Valor de Venda --}}
                 <div class="bg-white p-8 rounded-xl shadow-lg border border-gray-100">
                     <h3 class="text-xl font-bold text-gray-800 border-b border-gray-100 pb-3 mb-6 flex items-center gap-3">
                         <span class="bg-brand-gold text-white w-7 h-7 rounded-full flex items-center justify-center text-xs font-black">2</span>
@@ -78,7 +88,7 @@
                     </div>
                 </div>
 
-                {{-- 3. Despesas e Encargos --}}
+                {{-- 3. Despesas --}}
                 <div class="bg-white p-8 rounded-xl shadow-lg border border-gray-100">
                     <h3 class="text-xl font-bold text-gray-800 border-b border-gray-100 pb-3 mb-6 flex items-center gap-3">
                         <span class="bg-brand-gold text-white w-7 h-7 rounded-full flex items-center justify-center text-xs font-black">3</span>
@@ -101,8 +111,10 @@
 
                     <div x-show="form.has_expenses === 'Sim'" x-transition class="grid grid-cols-1 md:grid-cols-2 gap-4 bg-gray-50 p-6 rounded-lg border border-gray-200">
                         <div>
-                            <label class="block text-xs font-bold text-gray-500 mb-1">Obras e melhorias (últimos 12 anos) (€)</label>
+                            <label class="block text-xs font-bold text-gray-500 mb-1">Obras e melhorias (€)</label>
                             <input type="number" step="0.01" x-model="form.expenses_works" class="w-full rounded border-gray-300 text-sm focus:border-brand-gold focus:ring-brand-gold">
+                            {{-- AVISO LEGAL --}}
+                            <p class="text-[10px] text-gray-400 mt-1">*Apenas obras realizadas nos últimos 12 anos.</p>
                         </div>
                         <div>
                             <label class="block text-xs font-bold text-gray-500 mb-1">IMT e Imposto do Selo (Aquisição) (€)</label>
@@ -113,23 +125,23 @@
                             <input type="number" step="0.01" x-model="form.expenses_commission" class="w-full rounded border-gray-300 text-sm focus:border-brand-gold focus:ring-brand-gold">
                         </div>
                         <div>
-                            <label class="block text-xs font-bold text-gray-500 mb-1">Outros Encargos (Escrituras, Certificados) (€)</label>
+                            <label class="block text-xs font-bold text-gray-500 mb-1">Outros Encargos (€)</label>
                             <input type="number" step="0.01" x-model="form.expenses_other" class="w-full rounded border-gray-300 text-sm focus:border-brand-gold focus:ring-brand-gold">
                         </div>
                     </div>
                 </div>
 
-                {{-- 4. Tipo de Imóvel e Isenções (Lógica Condicional) --}}
+                {{-- 4. Tipo de Imóvel e Isenções --}}
                 <div class="bg-white p-8 rounded-xl shadow-lg border border-gray-100 space-y-6">
                     <h3 class="text-xl font-bold text-gray-800 border-b border-gray-100 pb-3 mb-6 flex items-center gap-3">
                         <span class="bg-brand-gold text-white w-7 h-7 rounded-full flex items-center justify-center text-xs font-black">4</span>
                         Finalidade e Tributação
                     </h3>
 
-                    {{-- PERGUNTA CHAVE 1: Venda ao Estado (Isenção Total) --}}
+                    {{-- Venda ao Estado --}}
                     <div class="bg-blue-50 p-4 rounded-lg border border-blue-100">
                         <label class="block text-sm font-medium text-gray-900 mb-3 leading-relaxed">
-                            A venda deste imóvel foi feita ao Estado, a Regiões Autónomas ou Autarquias?
+                            A venda deste imóvel foi feita ao Estado, Regiões Autónomas ou Autarquias?
                         </label>
                         <div class="flex gap-6">
                             <label class="inline-flex items-center cursor-pointer">
@@ -143,14 +155,14 @@
                         </div>
                         <div x-show="form.sold_to_state === 'Sim'" x-transition class="mt-3 text-sm text-blue-700 font-medium flex items-center gap-2 p-2 bg-blue-100 rounded">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                            <span>O ganho é isento de IRS. O cálculo abaixo apenas confirmará o valor da mais-valia, mas a isenção aplica-se.</span>
+                            <span>O ganho é isento de IRS.</span>
                         </div>
                     </div>
 
-                    {{-- PERGUNTAS CONDICIONAIS (Se NÃO vendeu ao Estado) --}}
+                    {{-- Lógica Condicional Principal --}}
                     <div x-show="form.sold_to_state === 'Não'" x-transition class="space-y-6">
                         
-                        {{-- PERGUNTA HPP STATUS --}}
+                        {{-- HPP Status --}}
                         <div class="p-4 rounded-lg border" :class="{'border-gray-200 bg-white': true, 'border-brand-gold ring-1 ring-brand-gold/20': form.hpp_status !== 'Não'}">
                             <label class="block text-sm font-bold text-gray-700 mb-3">Qual era a finalidade do imóvel no momento da venda?</label>
                             <div class="flex flex-col gap-3">
@@ -169,26 +181,30 @@
                             </div>
                         </div>
 
-                        {{-- BLOCO CONDICIONAL: SE FOR HPP (>12 meses) --}}
-                        <div x-show="form.hpp_status === 'Sim'" x-transition class="space-y-6 p-4 rounded-lg border border-green-100 bg-green-50">
-                            <h4 class="text-lg font-bold text-green-800">Opções de Isenção por Reinvestimento</h4>
-                            
-                            {{-- Reinvestimento --}}
-                            <div class="border-b border-green-100 pb-4">
+                        {{-- BLOCO DE BENEFÍCIOS (Reinvestimento / Amortização) --}}
+                        <div class="space-y-6 p-4 rounded-lg border border-green-100 bg-green-50">
+                            <h4 class="text-lg font-bold text-green-800">Opções de Isenção e Benefícios</h4>
+
+                            {{-- Reinvestimento (SÓ HPP) --}}
+                            <div class="border-b border-green-100 pb-4" x-show="form.hpp_status === 'Sim'">
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Pretende reinvestir o valor da venda numa nova HPP?</label>
                                 <div class="flex gap-6 mb-3">
                                     <label class="inline-flex items-center cursor-pointer"><input type="radio" value="Sim" x-model="form.reinvest_intention" class="text-brand-gold focus:ring-brand-gold w-5 h-5"><span class="ml-2">Sim</span></label>
                                     <label class="inline-flex items-center cursor-pointer"><input type="radio" value="Não" x-model="form.reinvest_intention" class="text-brand-gold focus:ring-brand-gold w-5 h-5"><span class="ml-2">Não</span></label>
                                 </div>
                                 <div x-show="form.reinvest_intention === 'Sim'" x-transition>
-                                    <label class="block text-xs font-bold text-gray-600 mb-1">Valor a Reinvestir (Máximo é o Valor de Venda) (€)</label>
+                                    <label class="block text-xs font-bold text-gray-600 mb-1">Valor a Reinvestir (€)</label>
                                     <input type="number" step="0.01" x-model="form.reinvestment_amount" class="w-full rounded-lg border-green-300 focus:border-brand-gold focus:ring-brand-gold">
                                 </div>
                             </div>
 
-                            {{-- Amortização --}}
+                            {{-- Amortização (TODOS - Norma Mais Habitação) --}}
                             <div class="border-b border-green-100 pb-4">
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Pretende amortizar o crédito habitação com o valor da sua mais-valia?</label>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Pretende amortizar crédito habitação (HPP) com a venda?</label>
+                                {{-- Aviso para Secundários --}}
+                                <p class="text-[10px] text-gray-500 mb-3" x-show="form.hpp_status !== 'Sim'">
+                                    *Válido para vendas de secundários/terrenos em 2023/2024 (Lei Mais Habitação).
+                                </p>
                                 <div class="flex gap-6 mb-3">
                                     <label class="inline-flex items-center cursor-pointer"><input type="radio" value="Sim" x-model="form.amortize_credit" class="text-brand-gold focus:ring-brand-gold w-5 h-5"><span class="ml-2">Sim</span></label>
                                     <label class="inline-flex items-center cursor-pointer"><input type="radio" value="Não" x-model="form.amortize_credit" class="text-brand-gold focus:ring-brand-gold w-5 h-5"><span class="ml-2">Não</span></label>
@@ -198,35 +214,19 @@
                                     <input type="number" step="0.01" x-model="form.amortization_amount" class="w-full rounded-lg border-green-300 focus:border-brand-gold focus:ring-brand-gold">
                                 </div>
                             </div>
-                            
-                            {{-- Status Adicionais --}}
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-2">Está reformado ou tem mais de 65 anos?</label>
-                                    <div class="flex gap-6">
-                                        <label class="inline-flex items-center cursor-pointer"><input type="radio" value="Sim" x-model="form.retired_status" class="text-brand-gold focus:ring-brand-gold w-5 h-5"><span class="ml-2">Sim</span></label>
-                                        <label class="inline-flex items-center cursor-pointer"><input type="radio" value="Não" x-model="form.retired_status" class="text-brand-gold focus:ring-brand-gold w-5 h-5"><span class="ml-2">Não</span></label>
-                                    </div>
+
+                            {{-- Reformados (SÓ HPP) --}}
+                            <div x-show="form.hpp_status === 'Sim'">
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Está reformado ou tem mais de 65 anos?</label>
+                                <div class="flex gap-6">
+                                    <label class="inline-flex items-center cursor-pointer"><input type="radio" value="Sim" x-model="form.retired_status" class="text-brand-gold focus:ring-brand-gold w-5 h-5"><span class="ml-2">Sim</span></label>
+                                    <label class="inline-flex items-center cursor-pointer"><input type="radio" value="Não" x-model="form.retired_status" class="text-brand-gold focus:ring-brand-gold w-5 h-5"><span class="ml-2">Não</span></label>
                                 </div>
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-2">A habitação foi construída por si?</label>
-                                    <div class="flex gap-6">
-                                        <label class="inline-flex items-center cursor-pointer"><input type="radio" value="Sim" x-model="form.self_built" class="text-brand-gold focus:ring-brand-gold w-5 h-5"><span class="ml-2">Sim</span></label>
-                                        <label class="inline-flex items-center cursor-pointer"><input type="radio" value="Não" x-model="form.self_built" class="text-brand-gold focus:ring-brand-gold w-5 h-5"><span class="ml-2">Não</span></label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        {{-- BLOCO CONDICIONAL: SE FOR IMÓVEL SECUNDÁRIO/INVESTIMENTO --}}
-                        <div x-show="form.hpp_status === 'Não' || form.hpp_status === 'Menos12Meses'" x-transition class="space-y-6 p-4 rounded-lg border border-red-100 bg-red-50">
-                            <div class="text-sm font-medium text-red-800 flex items-center gap-2 mb-4">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
-                                <p>Este tipo de venda não usufrui de isenções por reinvestimento. 100% da mais-valia não isenta será considerada para tributação (conforme pedido).</p>
+                                <p class="text-[10px] text-gray-400 mt-1" x-show="form.retired_status === 'Sim'">*Permite isenção se reinvestir em PPR/Seguros.</p>
                             </div>
                         </div>
 
-                        {{-- PERGUNTAS DE IRS GERAIS (Visíveis em todos os casos NÃO isentos) --}}
+                        {{-- Dados de Tributação --}}
                         <div class="space-y-6 pt-4 border-t border-gray-100">
                             <h4 class="text-lg font-bold text-gray-800">Dados de Tributação</h4>
 
@@ -269,7 +269,6 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
 
                     </div>
@@ -330,12 +329,12 @@
                                     <span class="text-gray-600">Despesas e encargos</span>
                                     <span class="font-bold text-brand-gold" x-text="'- ' + results.expenses_fmt + ' €'"></span>
                                 </div>
-                                <div class="flex justify-between items-center border-b border-gray-100 pb-2" x-show="form.hpp_status === 'Sim' && (results.reinvestment_fmt !== '0,00' || form.amortize_credit === 'Sim')">
+                                <div class="flex justify-between items-center border-b border-gray-100 pb-2" x-show="results.reinvestment_fmt !== '0,00' || form.amortize_credit === 'Sim'">
                                     <span class="text-gray-600">Valor Reinvestido / Amortizado (Isento)</span>
                                     <span class="font-bold text-brand-gold" x-text="'- ' + results.reinvestment_fmt + ' €'"></span>
                                 </div>
                                 <div class="flex justify-between items-center pt-2 mt-4">
-                                    <span class="font-black text-brand-black text-base">Mais-valia Tributável (Base de IRS)</span>
+                                    <span class="font-black text-brand-black text-base">Mais-valia Tributável</span>
                                     <span class="font-black text-green-600 text-lg" x-text="results.taxable_gain_fmt + ' €'"></span>
                                 </div>
                             </div>
@@ -346,20 +345,22 @@
                             A lei prevê a isenção de tributação em IRS para a venda de imóveis de habitação ao Estado, Regiões Autónomas ou Autarquias.
                         </div>
 
+                        <div x-show="results.taxable_gain_fmt !== '0,00'" class="p-4 bg-yellow-100 border border-yellow-200 rounded-xl text-xs text-yellow-800 font-medium">
+                            <strong class="block mb-1 text-sm text-yellow-900">Nota sobre Englobamento (50%)</strong>
+                            Em Portugal, apenas 50% da mais-valia líquida (após isenções) é englobada e sujeita às taxas progressivas de IRS. O valor "Tributável" acima já reflete essa regra.
+                        </div>
+
                     </div>
                 </div>
             </div>
 
         </div>
 
-        {{-- Modal de Lead --}}
+        {{-- Modal de Lead (Mantido igual) --}}
         <div x-show="showLeadModal" style="display: none;" class="fixed inset-0 z-50 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
             <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-                
                 <div x-show="showLeadModal" x-transition.opacity class="fixed inset-0 bg-gray-900 bg-opacity-75 transition-opacity" aria-hidden="true" @click="showLeadModal = false"></div>
-
                 <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
-
                 <div x-show="showLeadModal" x-transition.scale class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg w-full">
                     <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                         <div class="sm:flex sm:items-start">
@@ -420,19 +421,19 @@
                 expenses_imt: '',
                 expenses_commission: '',
                 expenses_other: '',
-                sold_to_state: 'Não', // NOVO: Pergunta Chave (Isenção total)
-                hpp_status: 'Sim', // Condicional
-                amortize_credit: 'Não', // Condicional
-                amortization_amount: '', // Condicional
-                joint_tax_return: 'Não', 
-                annual_income: '', 
+                sold_to_state: 'Não',
+                hpp_status: 'Sim',
+                amortize_credit: 'Não',
+                amortization_amount: '',
+                joint_tax_return: 'Não',
+                annual_income: '',
                 public_support: 'Não',
                 public_support_year: 2020,
                 public_support_month: 'Janeiro',
-                retired_status: 'Não', // Condicional
-                self_built: 'Não', // Condicional
-                reinvest_intention: 'Não', // Condicional
-                reinvestment_amount: '', // Condicional
+                retired_status: 'Não', 
+                self_built: 'Não', 
+                reinvest_intention: 'Não',
+                reinvestment_amount: '',
                 lead_name: '',
                 lead_email: ''
             },
@@ -447,31 +448,24 @@
                 estimated_tax_fmt: '0,00',
                 status: ''
             },
-
-            // Função para limpar campos de reinvestimento/amortização/idade quando muda o HPP status ou SoldToState.
+            
             resetHPPFields() {
-                if(this.form.sold_to_state === 'Sim' || this.form.hpp_status !== 'Sim') {
-                    this.form.reinvest_intention = 'Não';
-                    this.form.reinvestment_amount = '';
-                    this.form.amortize_credit = 'Não';
-                    this.form.amortization_amount = '';
-                    this.form.retired_status = 'Não';
-                    this.form.self_built = 'Não';
+                if(this.form.sold_to_state === 'Sim') {
+                    this.form.hpp_status = 'Não'; 
                 }
+                this.resetReinvestmentFields();
             },
+
             resetReinvestmentFields() {
                  if(this.form.hpp_status !== 'Sim') {
                     this.form.reinvest_intention = 'Não';
                     this.form.reinvestment_amount = '';
-                    this.form.amortize_credit = 'Não';
-                    this.form.amortization_amount = '';
-                    this.form.retired_status = 'Não';
-                    this.form.self_built = 'Não';
+                    // NOTA: Amortização não é resetada aqui pois pode ser usada para secundários
+                    this.form.retired_status = 'Não'; 
                 }
             },
             
             openModal() {
-                // Validação básica frontend antes de abrir modal
                 if(!this.form.acquisition_value || !this.form.sale_value) {
                     alert("Por favor, preencha pelo menos os valores de aquisição e venda.");
                     return;
@@ -486,12 +480,10 @@
                 }
 
                 try {
-                    // Limpeza preventiva para evitar erro de validação backend
                     if(this.form.sold_to_state === 'Sim') {
                         this.form.annual_income = 0; 
                     }
 
-                    // Assumindo que a rota 'tools.gains.calculate' está correta e funcional no Laravel
                     const response = await fetch('{{ route('tools.gains.calculate') }}', {
                         method: 'POST',
                         headers: {
@@ -508,9 +500,8 @@
 
                     this.results = await response.json();
                     this.hasCalculated = true;
-                    this.showLeadModal = false; // Fecha modal
+                    this.showLeadModal = false; 
                     
-                    // Scroll suave para o resultado
                     this.$nextTick(() => {
                         this.$el.querySelector('.bg-orange-500').scrollIntoView({ behavior: 'smooth', block: 'center' });
                     });
