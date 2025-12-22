@@ -57,7 +57,6 @@
               this.showConsent = false;
           },
           handleExitIntent(e) {
-              // Se o mouse sair pelo topo da página (clientY < 0) e o popup ainda não foi mostrado na sessão
               if (e.clientY <= 0 && !sessionStorage.getItem('exit_popup_shown')) {
                   this.showExitPopup = true;
                   sessionStorage.setItem('exit_popup_shown', 'true');
@@ -124,7 +123,14 @@
                 <div class="flex items-center gap-3 opacity-80 hover:opacity-100 transition-opacity">
                     <span class="text-[10px] font-light">Developed by</span>
                     <a href="https://www.maxselladvisor.com" target="_blank" class="flex items-center gap-1 group">
-                        <img src="{{ asset('img/maxsell.png') }}" alt="Maxsell" class="h-5 transition-all">
+                        {{-- 
+                            EFEITO NA LOGO:
+                            brightness-0 invert: Deixa tudo branco
+                            drop-shadow: Adiciona o brilho/efeito solicitado
+                        --}}
+                        <img src="{{ asset('img/maxsell.png') }}" 
+                             alt="Maxsell" 
+                             class="h-5 brightness-0 invert drop-shadow-[0_0_2px_rgba(255,255,255,0.8)] transition-all duration-300 hover:drop-shadow-[0_0_5px_rgba(255,255,255,1)]">
                     </a>
                 </div>
             </div>
