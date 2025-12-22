@@ -2,8 +2,8 @@
 
 @section('content')
 
-{{-- Cabeçalho --}}
-<div class="bg-brand-black text-white py-12 text-center relative overflow-hidden">
+{{-- Cabeçalho com ajuste de espaçamento (pt-32) para a Navbar Fixa --}}
+<div class="bg-brand-black text-white pt-32 pb-12 text-center relative overflow-hidden">
     <div class="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
     <div class="container mx-auto px-6 relative z-10">
         <h1 class="text-3xl font-serif text-white">Simulador de Crédito Habitação</h1>
@@ -119,7 +119,6 @@
                         {{-- Taxa Fixa Manual (Se Fixa) --}}
                         <div x-show="rateType === 'fixed'" x-transition>
                             <label class="block text-xs font-bold uppercase text-gray-500 mb-2">Taxa Fixa Anual (%)</label>
-                            {{-- Valor padrão alterado para 4.0% --}}
                             <input type="number" step="0.01" x-model.number="fixedRate" @input="calculate()" class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:border-brand-gold" placeholder="Ex: 4.0">
                         </div>
 
@@ -141,15 +140,13 @@
                     </div>
                 </div>
 
-                {{-- 3. Seguros Obrigatórios REMOVIDO CONFORME SOLICITADO --}}
-
             </div>
 
             {{-- ÁREA DE RESULTADOS (Sticky) --}}
             <div class="lg:col-span-5" id="results-area">
                 <div class="sticky top-24 space-y-6">
                     
-                    {{-- Cartão Principal: Mensalidade (Alterado para mostrar apenas Capital + Juros) --}}
+                    {{-- Cartão Principal: Mensalidade --}}
                     <div class="bg-brand-charcoal text-white p-8 rounded-xl shadow-2xl relative overflow-hidden">
                         <div class="absolute top-0 right-0 p-4 opacity-10">
                             <svg class="w-24 h-24 text-brand-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0-2.08.402-2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
@@ -169,7 +166,6 @@
                                 <span class="text-gray-400">IS Juros (1º Mês) *4%</span>
                                 <span>€ <span x-text="formatMoney(monthlyStampDuty)"></span></span>
                             </div>
-                            {{-- Linha de Seguros Removida --}}
                         </div>
                     </div>
 
@@ -185,7 +181,6 @@
                                 <span class="text-gray-600">Imposto Selo Abertura (0.6%)</span>
                                 <span class="font-medium text-red-600">€ <span x-text="formatMoney(openingStampDuty)"></span></span>
                             </div>
-                            {{-- Linha de Comissões Bancárias (Est.) REMOVIDA --}}
                             <div class="flex justify-between border-t border-gray-100 pt-2 font-bold">
                                 <span>Total Necessário (Cash)</span>
                                 <span>€ <span x-text="formatMoney(upfrontTotal)"></span></span>
@@ -238,15 +233,13 @@
             spread: 0.85,
             tan: 0,
             
-            // Variáveis de Seguros REMOVIDAS
-            
             // Outputs
             monthlyPayment: 0,
             monthlyStampDuty: 0,
-            monthlyTotal: 0, // totalInsurance removido
+            monthlyTotal: 0,
             
             openingStampDuty: 0,
-            bankFees: 0, // Estimativa dossiê + avaliação (Alterado para 0 conforme solicitado)
+            bankFees: 0, // Estimativa dossiê + avaliação (0 conforme solicitado)
             upfrontTotal: 0,
             
             totalInterest: 0,
@@ -301,7 +294,6 @@
                 if (this.rateType === 'variable') {
                     this.tan = this.euriborRate + this.spread;
                 } else {
-                    // Taxa Fixa contratada já é a taxa final. Usa o fixedRate como TAN.
                     this.tan = this.fixedRate; 
                 }
 
@@ -319,22 +311,19 @@
                 let firstMonthInterest = this.loanAmount * i;
                 this.monthlyStampDuty = firstMonthInterest * 0.04;
 
-                // 5. Total Mensal (Apenas Prestação + IS Juros)
+                // 5. Total Mensal
                 this.monthlyTotal = this.monthlyPayment + this.monthlyStampDuty;
 
                 // 6. Custos Iniciais
-                // IS Abertura: 0.6% (para prazos > 5 anos)
                 this.openingStampDuty = this.loanAmount * 0.006;
-                this.upfrontTotal = this.downPayment + this.openingStampDuty; // bankFees (Comissões) removido da soma
+                this.upfrontTotal = this.downPayment + this.openingStampDuty;
 
-                // 7. Totais Finais (Aproximados - assumindo taxa constante)
+                // 7. Totais Finais
                 let totalPayments = this.monthlyPayment * n;
                 this.totalInterest = totalPayments - this.loanAmount;
                 
-                // MTIC = Total Pagamentos + IS Juros Totais + Custos Iniciais (IS Abertura) - bankFees e Seguros removidos
                 let totalStampOnInterest = this.totalInterest * 0.04;
                 
-                // Cálculo MTIC sem Seguros e Comissões
                 this.mtic = totalPayments + totalStampOnInterest + this.openingStampDuty;
             }
         }

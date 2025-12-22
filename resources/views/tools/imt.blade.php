@@ -2,8 +2,8 @@
 
 @section('content')
 
-{{-- Cabeçalho Simples --}}
-<div class="bg-brand-black text-white py-12 text-center relative overflow-hidden">
+{{-- Cabeçalho Simples com ajuste de espaçamento (pt-32) --}}
+<div class="bg-brand-black text-white pt-32 pb-12 text-center relative overflow-hidden">
     <div class="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
     <div class="container mx-auto px-6 relative z-10">
         <h1 class="text-3xl font-serif text-white">Simulador de IMT e Selo 2025</h1>
