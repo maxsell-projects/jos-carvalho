@@ -93,7 +93,7 @@
                     <h5 class="text-xs font-bold uppercase tracking-widest mb-6 text-brand-gold">Contato</h5>
                     <ul class="space-y-3 text-sm text-gray-400">
                         <li>+351 910 739 610</li>
-                        <li>dmgmaia@remax.pt</li>
+                        <li>contacto@diogomaia.pt</li>
                         <li>Av. Casal Ribeiro 12B</li>
                     </ul>
                 </div>
