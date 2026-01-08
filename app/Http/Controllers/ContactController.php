@@ -22,7 +22,7 @@ class ContactController extends Controller
         try {
             // Ao usar ShouldQueue no Mailable, o método send() 
             // automaticamente despacha para a fila configurada.
-            Mail::to('dmgmaia@remax.pt')->send(new ContactLead($validated));
+            Mail::to('geminiemail05@gmail.com')->send(new ContactLead($validated));
 
             return back()->with('success', 'A sua mensagem foi enviada com sucesso! Entraremos em contacto brevemente.');
 
