@@ -5,8 +5,10 @@
 <div class="bg-brand-black text-white py-24 text-center relative overflow-hidden">
     <div class="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
     <div class="container mx-auto px-6 relative z-10">
-        <p class="text-brand-gold text-xs uppercase tracking-[0.4em] mb-4">Fale Conosco</p>
-        <h1 class="text-3xl md:text-5xl font-serif">Estamos à Sua Espera</h1>
+        {{-- [Alterado] Fale Conosco -> Contacte-nos --}}
+        <p class="text-brand-gold text-xs uppercase tracking-[0.4em] mb-4">Contacte-nos</p>
+        {{-- [Alterado] Estamos à Sua Espera -> Estamos ao seu Dispor --}}
+        <h1 class="text-3xl md:text-5xl font-serif">Estamos ao seu Dispor</h1>
         <p class="mt-4 text-gray-400 font-light max-w-2xl mx-auto">
             Seja para comprar, vender ou avaliar o seu imóvel, a nossa equipa está pronta para oferecer um serviço de excelência.
         </p>
@@ -19,6 +21,7 @@
             
             <div class="space-y-12">
                 <div>
+                    {{-- [Nota] Já estava correto em PT-PT (Contacto com c) --}}
                     <h3 class="text-2xl font-serif text-brand-black mb-6">Informações de Contacto</h3>
                     <p class="text-gray-500 font-light leading-relaxed mb-8">
                         Privilegiamos o contacto direto e personalizado. Visite-nos no nosso escritório ou envie uma mensagem direta.
@@ -85,17 +88,20 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
                             <label class="block text-xs uppercase tracking-widest text-gray-500 mb-2">Nome</label>
-                            <input type="text" name="name" required class="w-full bg-white border border-gray-200 rounded px-4 py-3 focus:outline-none focus:border-brand-gold transition-colors" placeholder="Seu nome">
+                            {{-- [Alterado] Seu nome -> O seu nome --}}
+                            <input type="text" name="name" required class="w-full bg-white border border-gray-200 rounded px-4 py-3 focus:outline-none focus:border-brand-gold transition-colors" placeholder="O seu nome">
                         </div>
                         <div>
-                            <label class="block text-xs uppercase tracking-widest text-gray-500 mb-2">Telefone</label>
+                            <label class="block text-xs uppercase tracking-widest text-gray-500 mb-2">Telemóvel</label>
+                            {{-- [Alterado] Telefone -> Telemóvel (mais comum para pessoal) ou mantém Telefone se for fixo --}}
                             <input type="tel" name="phone" class="w-full bg-white border border-gray-200 rounded px-4 py-3 focus:outline-none focus:border-brand-gold transition-colors" placeholder="+351">
                         </div>
                     </div>
 
                     <div>
                         <label class="block text-xs uppercase tracking-widest text-gray-500 mb-2">Email</label>
-                        <input type="email" name="email" required class="w-full bg-white border border-gray-200 rounded px-4 py-3 focus:outline-none focus:border-brand-gold transition-colors" placeholder="seu@email.com">
+                        {{-- [Alterado] seu@email.com -> o-seu@email.com --}}
+                        <input type="email" name="email" required class="w-full bg-white border border-gray-200 rounded px-4 py-3 focus:outline-none focus:border-brand-gold transition-colors" placeholder="o-seu@email.com">
                     </div>
 
                     <div>

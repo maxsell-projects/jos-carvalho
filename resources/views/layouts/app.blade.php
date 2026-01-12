@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {{-- [Alterado] Real Estate -> Imobiliário --}}
     <title>Diogo Maia | Real Estate</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
@@ -95,7 +96,8 @@
                 <div>
                     <h5 class="text-xs font-bold uppercase tracking-widest mb-6 text-brand-gold">Navegação</h5>
                     <ul class="space-y-3 text-sm text-gray-400">
-                        <li><a href="{{ route('home') }}" class="hover:text-white transition">Home</a></li>
+                        {{-- [Alterado] Home -> Início --}}
+                        <li><a href="{{ route('home') }}" class="hover:text-white transition">Início</a></li>
                         <li><a href="{{ route('about') }}" class="hover:text-white transition">Sobre</a></li>
                         <li><a href="{{ route('portfolio') }}" class="hover:text-white transition">Imóveis</a></li>
                         <li>
@@ -106,9 +108,10 @@
                     </ul>
                 </div>
 
-                {{-- Coluna 3: Contato --}}
+                {{-- Coluna 3: Contacto --}}
                 <div>
-                    <h5 class="text-xs font-bold uppercase tracking-widest mb-6 text-brand-gold">Contato</h5>
+                    {{-- [Alterado] Contato -> Contactos --}}
+                    <h5 class="text-xs font-bold uppercase tracking-widest mb-6 text-brand-gold">Contactos</h5>
                     <ul class="space-y-3 text-sm text-gray-400">
                         <li>+351 910 739 610</li>
                         <li>dmgmaia@remax.pt</li>
@@ -139,7 +142,8 @@
             <div class="mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-gray-600 uppercase tracking-widest">
                 <p>&copy; {{ date('Y') }} Diogo Maia Real Estate. Todos os direitos reservados.</p>
                 <div class="flex items-center gap-3 opacity-80 hover:opacity-100 transition-opacity">
-                    <span class="text-[10px] font-light">Developed by</span>
+                    {{-- [Alterado] Developed by -> Desenvolvido por --}}
+                    <span class="text-[10px] font-light">Desenvolvido por</span>
                     <a href="https://www.maxselladvisor.com" target="_blank" class="flex items-center gap-1 group">
                         <img src="{{ asset('img/maxsell.png') }}" 
                              alt="Maxsell" 

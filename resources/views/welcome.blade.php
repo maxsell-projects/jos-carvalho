@@ -8,7 +8,8 @@
     <div class="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-black/90"></div>
 
     <div class="relative z-10 container mx-auto px-6 text-center" data-aos="fade-up">
-        <p class="text-white/60 text-[10px] md:text-xs uppercase tracking-[0.5em] mb-6 font-light">Real Estate & Investments</p>
+        {{-- [Alterado] Real Estate & Investments -> Imobiliário & Investimentos --}}
+        <p class="text-white/60 text-[10px] md:text-xs uppercase tracking-[0.5em] mb-6 font-light">Imobiliário & Investimentos</p>
         <h1 class="text-5xl md:text-8xl font-serif text-white mb-10 leading-none tracking-tight">
             Elegância & <br> <span class="italic text-brand-gold">Exclusividade</span>
         </h1>
@@ -17,8 +18,9 @@
             <input type="text" name="location" placeholder="Localização, condomínio ou palavra-chave..." 
                    class="bg-transparent text-white placeholder-white/50 px-8 py-4 outline-none w-64 md:w-96 text-sm font-light rounded-full md:rounded-l-full md:rounded-r-none">
             
+            {{-- [Alterado] Buscar -> Pesquisar --}}
             <button type="submit" class="bg-white text-black hover:bg-brand-gold hover:text-white transition-colors duration-500 px-10 py-4 text-[10px] uppercase tracking-widest font-bold rounded-full">
-                Buscar
+                Pesquisar
             </button>
         </form>
     </div>
@@ -84,7 +86,8 @@
                 </a>
             @empty
                 <div class="col-span-3 text-center py-20 text-gray-400 font-serif italic">
-                    Acervo em atualização.
+                    {{-- [Alterado] Acervo -> Portfólio --}}
+                    Portfólio em atualização.
                 </div>
             @endforelse
         </div>
@@ -195,12 +198,15 @@
                 </div>
             </div>
 
-            <form action="#" method="POST" class="space-y-6 bg-white/5 p-8 md:p-12 border border-white/10" data-aos="fade-left">
+            {{-- Formulário Corrigido e Traduzido --}}
+            {{-- Nota: Apontei para a rota correta 'contact.send' em vez de '#' --}}
+            <form action="{{ route('contact.send') }}" method="POST" class="space-y-6 bg-white/5 p-8 md:p-12 border border-white/10" data-aos="fade-left">
                 @csrf
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div class="space-y-2">
                         <label class="text-[10px] uppercase tracking-widest text-gray-500">Nome</label>
-                        <input type="text" name="name" class="w-full bg-transparent border-b border-white/20 py-3 text-white focus:border-brand-gold focus:outline-none transition-colors" placeholder="Seu nome">
+                        {{-- [Alterado] Seu nome -> O seu nome --}}
+                        <input type="text" name="name" class="w-full bg-transparent border-b border-white/20 py-3 text-white focus:border-brand-gold focus:outline-none transition-colors" placeholder="O seu nome">
                     </div>
                     <div class="space-y-2">
                         <label class="text-[10px] uppercase tracking-widest text-gray-500">Telemóvel</label>
@@ -209,7 +215,8 @@
                 </div>
                 <div class="space-y-2">
                     <label class="text-[10px] uppercase tracking-widest text-gray-500">Email</label>
-                    <input type="email" name="email" class="w-full bg-transparent border-b border-white/20 py-3 text-white focus:border-brand-gold focus:outline-none transition-colors" placeholder="seu@email.com">
+                    {{-- [Alterado] seu@email.com -> o-seu@email.com --}}
+                    <input type="email" name="email" class="w-full bg-transparent border-b border-white/20 py-3 text-white focus:border-brand-gold focus:outline-none transition-colors" placeholder="o-seu@email.com">
                 </div>
                 <div class="space-y-2">
                     <label class="text-[10px] uppercase tracking-widest text-gray-500">Mensagem</label>
