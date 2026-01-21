@@ -31,7 +31,7 @@
 
                 <div class="mt-12 flex flex-wrap gap-6" data-aos="fade-up" data-aos-delay="500">
                     <a href="#portfolio-start" class="group relative px-8 py-4 bg-white text-brand-primary font-bold uppercase tracking-widest overflow-hidden">
-                        <span class="relative z-10 group-hover:text-white transition-colors duration-300">Explorar Espólio</span>
+                        <span class="relative z-10 group-hover:text-white transition-colors duration-300">Explorar Portfólio</span>
                         <div class="absolute inset-0 bg-brand-cta transform -translate-x-full group-hover:translate-x-0 transition-transform duration-300 ease-in-out"></div>
                     </a>
                     <a href="#contact-form" class="px-8 py-4 border border-white/20 hover:border-brand-premium text-white font-bold uppercase tracking-widest transition-all">

@@ -1,4 +1,3 @@
-{{-- Removemos a dependência do isScrolled para o fundo, mantendo a cor sólida original --}}
 <header x-data="{ mobileMenuOpen: false, toolsOpen: false }" 
         class="fixed top-0 w-full z-50 bg-brand-primary shadow-lg py-4 transition-all duration-300">
     
@@ -19,7 +18,7 @@
                 
                 {{-- Dropdown Ferramentas --}}
                 <div class="relative" @mouseenter="toolsOpen = true" @mouseleave="toolsOpen = false">
-                    <button class="text-[10px] font-bold uppercase tracking-[0.2em] text-white hover:text-brand-premium transition-colors flex items-center gap-1 focus:outline-none">
+                    <button class="text-[10px] font-bold uppercase tracking-[0.2em] text-white hover:text-brand-premium transition-colors flex items-center gap-1 focus:outline-none py-2">
                         Ferramentas
                         <svg class="w-3 h-3 transition-transform duration-300" :class="{'rotate-180': toolsOpen}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                     </button>
@@ -30,17 +29,20 @@
                          x-transition:enter="transition ease-out duration-200"
                          x-transition:enter-start="opacity-0 translate-y-2"
                          x-transition:enter-end="opacity-100 translate-y-0"
-                         class="absolute top-full left-1/2 -translate-x-1/2 mt-4 w-56 bg-white shadow-2xl border-t-2 border-brand-premium py-2 rounded-sm">
+                         class="absolute top-full left-1/2 -translate-x-1/2 pt-4 w-56 z-50"> {{-- FIX: pt-4 cria a ponte invisível --}}
                         
-                        <a href="{{ route('tools.credit') }}" class="block px-6 py-3 text-[10px] font-bold uppercase tracking-widest text-brand-primary hover:bg-gray-50 hover:text-brand-cta transition-colors">
-                            Simulador Crédito
-                        </a>
-                        <a href="{{ route('tools.imt') }}" class="block px-6 py-3 text-[10px] font-bold uppercase tracking-widest text-brand-primary hover:bg-gray-50 hover:text-brand-cta transition-colors">
-                            Simulador IMT
-                        </a>
-                        <a href="{{ route('tools.gains') }}" class="block px-6 py-3 text-[10px] font-bold uppercase tracking-widest text-brand-primary hover:bg-gray-50 hover:text-brand-cta transition-colors">
-                            Mais-Valias
-                        </a>
+                        {{-- Wrapper Visual (Fundo Branco e Bordas) --}}
+                        <div class="bg-white shadow-2xl border-t-2 border-brand-premium py-2 rounded-sm w-full">
+                            <a href="{{ route('tools.credit') }}" class="block px-6 py-3 text-[10px] font-bold uppercase tracking-widest text-brand-primary hover:bg-gray-50 hover:text-brand-cta transition-colors">
+                                Simulador Crédito
+                            </a>
+                            <a href="{{ route('tools.imt') }}" class="block px-6 py-3 text-[10px] font-bold uppercase tracking-widest text-brand-primary hover:bg-gray-50 hover:text-brand-cta transition-colors">
+                                Simulador IMT
+                            </a>
+                            <a href="{{ route('tools.gains') }}" class="block px-6 py-3 text-[10px] font-bold uppercase tracking-widest text-brand-primary hover:bg-gray-50 hover:text-brand-cta transition-colors">
+                                Mais-Valias
+                            </a>
+                        </div>
                     </div>
                 </div>
 
