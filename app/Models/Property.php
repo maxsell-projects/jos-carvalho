@@ -88,4 +88,54 @@ class Property extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Scopes (Filtros de Busca)
+    |--------------------------------------------------------------------------
+    */
+
+    /**
+     * Filtra por Texto (Título, Localização ou Cidade)
+     * Ex: Property::search('Porto')->get();
+     */
+    public function scopeSearch($query, $term)
+    {
+        if (!$term) return $query;
+        
+        return $query->where(function($q) use ($term) {
+            $q->where('title', 'LIKE', "%{$term}%")
+              ->orWhere('location', 'LIKE', "%{$term}%")
+              ->orWhere('city', 'LIKE', "%{$term}%");
+        });
+    }
+
+    /**
+     * Filtra por Tipo (Ignorando Maiúsculas/Minúsculas)
+     * Ex: Property::ofType('Apartamento')->get();
+     */
+    public function scopeOfType($query, $type)
+    {
+        if (!$type) return $query;
+        // O 'LIKE' resolve a diferença entre 'apartamento' e 'Apartamento'
+        return $query->where('type', 'LIKE', $type); 
+    }
+
+    /**
+     * Filtra por Condição (novo, usado, etc)
+     */
+    public function scopeOfCondition($query, $condition)
+    {
+        if (!$condition) return $query;
+        return $query->where('condition', $condition);
+    }
+
+    /**
+     * Filtra por Preço Máximo
+     */
+    public function scopeMaxPrice($query, $price)
+    {
+        if (!$price) return $query;
+        return $query->where('price', '<=', $price);
+    }
 }

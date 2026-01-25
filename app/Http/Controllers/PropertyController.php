@@ -12,7 +12,7 @@ use Illuminate\Validation\Rule;
 class PropertyController extends Controller
 {
     /**
-     * Listagem Administrativa
+     * Listagem Administrativa (Admin)
      */
     public function index()
     {
@@ -26,7 +26,7 @@ class PropertyController extends Controller
     }
 
     /**
-     * Cadastro de novo imóvel
+     * Cadastro de novo imóvel (Admin)
      */
     public function store(Request $request)
     {
@@ -43,6 +43,11 @@ class PropertyController extends Controller
             $data['cover_image'] = $request->file('cover_image')->store('properties', 'public');
         }
 
+        // Define usuário logado como dono (se não vier da request)
+        if (!isset($data['user_id'])) {
+            $data['user_id'] = auth()->id(); 
+        }
+
         $property = Property::create($data);
 
         // Processamento da Galeria
@@ -57,7 +62,7 @@ class PropertyController extends Controller
     }
 
     /**
-     * Atualização de imóvel existente
+     * Atualização de imóvel (Admin)
      */
     public function update(Request $request, Property $property)
     {
@@ -85,7 +90,7 @@ class PropertyController extends Controller
     }
 
     /**
-     * Remoção de imóvel e arquivos associados
+     * Remoção de imóvel (Admin)
      */
     public function destroy(Property $property)
     {
@@ -102,70 +107,51 @@ class PropertyController extends Controller
     }
 
     /**
-     * Listagem Pública com Filtros Inteligentes
-     * Adaptado para os dados da planilha (available, apartment, etc)
+     * -------------------------------------------------------
+     * ÁREA PÚBLICA (Onde a mágica dos filtros acontece)
+     * -------------------------------------------------------
      */
     public function publicIndex(Request $request)
     {
+        // Inicia a query carregando imagens (Eager Loading para performance)
         $query = Property::with('images')->where('is_visible', true);
 
-        // Filtro de Localização (Busca ampla)
-        if ($request->filled('location')) {
-            $search = $request->location;
-            $query->where(function($q) use ($search) {
-                $q->where('location', 'like', "%{$search}%")
-                  ->orWhere('city', 'like', "%{$search}%")
-                  ->orWhere('address', 'like', "%{$search}%")
-                  ->orWhere('title', 'like', "%{$search}%")
-                  ->orWhere('reference_code', 'like', "%{$search}%");
-            });
-        }
-
-        // Filtro de Tipo com mapeamento para termos do DB
-        if ($request->filled('type')) {
-            $typeMap = [
-                'apartamento' => 'apartment',
-                'moradia'     => 'house',
-                'casa'        => 'house',
-                'terreno'     => 'land',
-                'loja'        => 'store'
-            ];
-            $type = $typeMap[strtolower($request->type)] ?? $request->type;
-            $query->where('type', $type);
-        }
-
-        // Filtro de Status com mapeamento para termos da planilha
-        if ($request->filled('status')) {
-            $statusMap = [
-                'disponivel'   => 'available',
-                'venda'        => 'available',
-                'arrendamento' => 'rent',
-                'aluguel'      => 'rent'
-            ];
-            $status = $statusMap[strtolower($request->status)] ?? $request->status;
-            $query->where('status', $status);
-        }
-
-        // Filtros de Preço
-        if ($request->filled('price_min')) $query->where('price', '>=', $request->price_min);
-        if ($request->filled('price_max')) $query->where('price', '<=', $request->price_max);
-
-        // Filtro de Quartos (T0, T1, T2, T3, T4+)
-        if ($request->filled('bedrooms')) {
-            if ($request->bedrooms === '4+') {
-                $query->where('bedrooms', '>=', 4);
-            } else {
-                $query->where('bedrooms', (int)$request->bedrooms);
-            }
-        }
-
-        $properties = $query->latest()->paginate(9)->withQueryString();
+        // --- FILTROS VIA SCOPES DO MODEL ---
+        // Agora o Controller apenas orquestra, quem filtra é o Model.
+        
+        $properties = $query
+            ->search($request->input('location'))     // Busca por Texto (Cidade, Título, etc)
+            ->ofType($request->input('type'))         // Filtro de Tipo (Apartamento, etc)
+            ->ofCondition($request->input('condition')) // Filtro de Condição (Novo, Usado)
+            ->maxPrice($request->input('price_max'))  // Preço Máximo
+            
+            // Filtros simples que não precisaram de Scopes complexos
+            ->when($request->filled('status'), function($q) use ($request) {
+                $q->where('status', $request->status);
+            })
+            ->when($request->filled('bedrooms'), function($q) use ($request) {
+                if ($request->bedrooms === '4+') {
+                    $q->where('bedrooms', '>=', 4);
+                } else {
+                    $q->where('bedrooms', (int)$request->bedrooms);
+                }
+            })
+            ->when($request->filled('price_min'), function($q) use ($request) {
+                $q->where('price', '>=', $request->price_min);
+            })
+            
+            ->latest() // Mais recentes primeiro
+            ->paginate(9) // Paginação de 9 itens (grid 3x3)
+            ->withQueryString(); // Mantém os filtros ao mudar de página
 
         return view('properties.index', compact('properties'));
     }
 
     public function show(Property $property)
     {
+        // Incrementa visualizações se tiver coluna views, senão ignora
+        // $property->increment('views'); 
+        
         $property->load('images');
         return view('properties.show', compact('property'));
     }
