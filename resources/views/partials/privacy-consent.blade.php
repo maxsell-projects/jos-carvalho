@@ -7,17 +7,17 @@
      x-transition:leave="transition ease-in duration-300"
      x-transition:leave-start="translate-y-0 opacity-100"
      x-transition:leave-end="translate-y-full opacity-0"
-     class="fixed bottom-0 left-0 w-full z-[60] bg-brand-primary/95 backdrop-blur-md border-t border-white/10 p-6 md:p-8 shadow-2xl">
+     class="fixed bottom-0 left-0 w-full z-[100] bg-brand-primary/95 backdrop-blur-md border-t border-white/10 p-6 pb-12 md:p-8 shadow-2xl">
     
     <div class="container mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
         <div class="text-center md:text-left">
             <p class="text-sm text-gray-300 leading-relaxed font-light">
                 Utilizamos cookies para personalizar a sua experiência exclusiva. Ao continuar a navegar, aceita a nossa 
-                <button @click="showPrivacyModal = true" class="text-brand-premium hover:text-white underline decoration-brand-premium/50 hover:decoration-white transition-all">Política de Privacidade, Cookies e Litígios</button>.
+                <button @click.prevent="showPrivacyModal = true" class="text-brand-premium hover:text-white underline decoration-brand-premium/50 hover:decoration-white transition-all cursor-pointer">Política de Privacidade, Cookies e Litígios</button>.
             </p>
         </div>
-        <div class="flex gap-4">
-            <button @click="acceptCookies()" class="px-8 py-3 bg-brand-premium text-brand-primary text-xs font-bold uppercase tracking-widest hover:bg-white transition-all duration-300 rounded-sm whitespace-nowrap shadow-lg">
+        <div class="flex gap-4 w-full md:w-auto justify-center md:justify-end">
+            <button @click="acceptCookies()" class="w-full md:w-auto px-8 py-4 md:py-3 bg-brand-premium text-brand-primary text-xs font-bold uppercase tracking-widest hover:bg-white transition-all duration-300 rounded-sm whitespace-nowrap shadow-lg cursor-pointer active:scale-95">
                 Aceitar
             </button>
         </div>
@@ -34,7 +34,7 @@
      x-transition:leave="transition ease-in duration-200"
      x-transition:leave-start="opacity-100"
      x-transition:leave-end="opacity-0"
-     class="fixed inset-0 z-[70] flex items-center justify-center p-4 bg-brand-primary/90 backdrop-blur-sm">
+     class="fixed inset-0 z-[110] flex items-center justify-center p-4 bg-brand-primary/90 backdrop-blur-sm">
     
     <div @click.outside="showPrivacyModal = false" 
          class="bg-white w-full max-w-5xl max-h-[85vh] flex flex-col rounded shadow-2xl relative overflow-hidden border-t-4 border-brand-premium"
