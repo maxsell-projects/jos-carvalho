@@ -4,12 +4,24 @@
 
 <div class="bg-white w-full overflow-hidden">
     
-    {{-- 1. HERO COM VÍDEO (Autoplay, Loop, Mudo) --}}
+    {{-- 1. HERO COM VÍDEO (Otimizado para LCP) --}}
     <section class="relative h-screen w-full overflow-hidden">
-        {{-- Vídeo de Fundo --}}
-        <video autoplay muted loop playsinline class="absolute top-0 left-0 w-full h-full object-cover">
-            {{-- Vídeo Stock de Luxo (Placeholder) --}}
+        {{-- 
+           PERFORMANCE: O atributo 'poster' exibe a imagem imediatamente.
+           Isso resolve a métrica LCP (Largest Contentful Paint).
+        --}}
+        <video 
+            autoplay 
+            muted 
+            loop 
+            playsinline 
+            poster="{{ asset('img/porto_dark.jpeg') }}"
+            class="absolute top-0 left-0 w-full h-full object-cover"
+        >
             <source src="{{ asset('video/hero-luxury.webm') }}" type="video/webm">
+            
+            {{-- Fallback: Imagem estática se o vídeo falhar ou em modo de economia de dados --}}
+            <img src="{{ asset('img/porto_dark.jpeg') }}" alt="Luxury Real Estate Portugal" class="absolute inset-0 w-full h-full object-cover">
         </video>
         
         {{-- Overlay Escuro para leitura --}}
@@ -48,7 +60,7 @@
         </div>
     </section>
 
-    {{-- 2. FAIXA MARQUEE (Cor Dourada/Premium) --}}
+    {{-- 2. FAIXA MARQUEE --}}
     <div class="bg-brand-premium py-4 overflow-hidden relative z-20">
         <div class="whitespace-nowrap flex animate-marquee">
             @for($i = 0; $i < 10; $i++)
@@ -59,7 +71,7 @@
         </div>
     </div>
 
-    {{-- 3. DEPOIMENTOS (Fundo Branco) --}}
+    {{-- 3. DEPOIMENTOS --}}
     <section class="py-24 bg-white">
         <div class="container mx-auto px-6">
             <div class="text-center mb-16">
@@ -110,7 +122,7 @@
         </div>
     </section>
 
-    {{-- 4. METODOLOGIA (Clean / Branco) --}}
+    {{-- 4. METODOLOGIA --}}
     <section class="py-24 bg-white border-t border-gray-100">
         <div class="container mx-auto px-6">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
@@ -157,9 +169,8 @@
         </div>
     </section>
 
-    {{-- 5. MAPA (Localização Faro) --}}
+    {{-- 5. MAPA --}}
     <section class="h-[500px] w-full relative bg-gray-100">
-        {{-- Iframe Google Maps (Faro) --}}
         <iframe 
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3181.769974591465!2d-7.927233823486338!3d37.0113823721867!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd0552d7e63b0a7b%3A0x6c6e752945281577!2sAv.%20Cidade%20de%20Hayward%206%2C%208000-170%20Faro!5e0!3m2!1spt-PT!2spt!4v1707436000000!5m2!1spt-PT!2spt" 
             width="100%" 
@@ -169,7 +180,6 @@
             loading="lazy">
         </iframe>
         
-        {{-- Card Flutuante --}}
         <div class="absolute bottom-6 left-6 md:left-20 bg-white p-8 shadow-2xl max-w-sm border-l-4 border-brand-primary">
             <h4 class="font-display text-2xl text-brand-primary mb-2">Faro, Algarve</h4>
             <p class="text-xs text-brand-secondary uppercase tracking-widest mb-4">Sede Operacional</p>
@@ -180,7 +190,7 @@
         </div>
     </section>
 
-    {{-- 6. PERGUNTAS FREQUENTES (FAQ) --}}
+    {{-- 6. PERGUNTAS FREQUENTES --}}
     <section class="py-24 bg-gray-50">
         <div class="container mx-auto px-6 max-w-4xl">
             <div class="text-center mb-12">
@@ -189,7 +199,6 @@
             </div>
 
             <div class="space-y-4" x-data="{ active: null }">
-                {{-- FAQ 1 --}}
                 <div class="bg-white border border-gray-200 rounded-sm">
                     <button @click="active = (active === 1 ? null : 1)" class="w-full text-left px-6 py-5 flex justify-between items-center focus:outline-none">
                         <span class="font-bold text-brand-primary text-sm md:text-base">Como funciona o processo de Golden Visa?</span>
@@ -200,7 +209,6 @@
                     </div>
                 </div>
 
-                {{-- FAQ 2 --}}
                 <div class="bg-white border border-gray-200 rounded-sm">
                     <button @click="active = (active === 2 ? null : 2)" class="w-full text-left px-6 py-5 flex justify-between items-center focus:outline-none">
                         <span class="font-bold text-brand-primary text-sm md:text-base">Trabalham com imóveis fora do mercado (Off-Market)?</span>
@@ -211,7 +219,6 @@
                     </div>
                 </div>
 
-                {{-- FAQ 3 --}}
                 <div class="bg-white border border-gray-200 rounded-sm">
                     <button @click="active = (active === 3 ? null : 3)" class="w-full text-left px-6 py-5 flex justify-between items-center focus:outline-none">
                         <span class="font-bold text-brand-primary text-sm md:text-base">Faz gestão de arrendamento pós-compra?</span>
@@ -225,7 +232,7 @@
         </div>
     </section>
 
-    {{-- 7. IMÓVEIS EM DESTAQUE (Aleatórios) --}}
+    {{-- 7. IMÓVEIS EM DESTAQUE (Otimizado) --}}
     <section id="properties" class="py-24 bg-white">
         <div class="container mx-auto px-6">
             <div class="flex flex-col md:flex-row justify-between items-end mb-12">
@@ -238,14 +245,24 @@
                 </a>
             </div>
 
-            {{-- Grid de Imóveis --}}
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
                 @foreach($properties as $property)
                     <div class="group block relative bg-white border border-gray-100 hover:shadow-xl transition-all duration-300">
-                        <a href="{{ route('properties.show', $property->slug) }}">
-                            <div class="relative h-[300px] overflow-hidden">
+                        <a href="{{ route('properties.show', $property->slug) }}" aria-label="Ver detalhes de {{ $property->title }}">
+                            <div class="relative h-[300px] overflow-hidden bg-gray-100">
+                                {{-- 
+                                    OTIMIZAÇÃO DE IMAGEM: 
+                                    - loading="lazy": Atrasa o carregamento até ser necessário
+                                    - width/height: Previne CLS
+                                    - alt: Acessibilidade
+                                --}}
                                 <img src="{{ $property->cover_image ? asset('storage/' . $property->cover_image) : asset('img/placeholder.jpg') }}" 
+                                     alt="Foto principal do imóvel {{ $property->title }}"
+                                     loading="lazy"
+                                     width="400"
+                                     height="300"
                                      class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                                
                                 <div class="absolute top-4 right-4 bg-white/95 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-brand-primary shadow-sm">
                                     {{ $property->type }}
                                 </div>
@@ -258,16 +275,14 @@
                                 <h4 class="font-display text-xl text-brand-primary mb-4 truncate">{{ $property->title }}</h4>
                                 <div class="flex justify-between items-center border-t border-gray-100 pt-4 text-xs text-gray-500 font-medium">
                                     <span class="flex items-center gap-1">
-                                        {{-- Ícone Cama --}}
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
                                         {{ $property->bedrooms }}
                                     </span>
                                     <span class="flex items-center gap-1">
-                                        {{-- Ícone Área --}}
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/></svg>
                                         {{ $property->area_gross }}m²
                                     </span>
-                                    <span class="text-brand-cta font-bold">Ver Detalhes &rarr;</span>
+                                    <span class="text-brand-cta font-bold">Ver Detalhes →</span>
                                 </div>
                             </div>
                         </a>
@@ -283,13 +298,13 @@
         </div>
     </section>
 
-    {{-- 8. PRIVATE OFFICE (Imagem Luxo Nova) --}}
+    {{-- 8. PRIVATE OFFICE --}}
     <section id="contact" class="py-32 relative overflow-hidden">
-        {{-- Fundo Luxo Interior (Diferente do Header) --}}
+        {{-- Fundo Luxo Interior --}}
         <div class="absolute inset-0 bg-cover bg-center fixed-bg" 
              style="background-image: url('https://images.pexels.com/photos/3797991/pexels-photo-3797991.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');">
         </div>
-        <div class="absolute inset-0 bg-brand-primary/90"></div> {{-- Overlay Escuro --}}
+        <div class="absolute inset-0 bg-brand-primary/90"></div>
 
         <div class="container mx-auto px-6 relative z-10">
             <div class="max-w-4xl mx-auto text-center mb-12">
@@ -327,10 +342,8 @@
     @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
     .animate-marquee { animation: marquee 40s linear infinite; }
     .fixed-bg { background-attachment: fixed; }
-    
-    /* Ajustes finos para Mobile */
     @media (max-width: 768px) {
-        .fixed-bg { background-attachment: scroll; } /* Parallax desativado no mobile para performance */
+        .fixed-bg { background-attachment: scroll; }
     }
 </style>
 
