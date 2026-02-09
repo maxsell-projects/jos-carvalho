@@ -6,7 +6,7 @@ use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\ToolsController;
 use App\Http\Controllers\ContactController;
-use App\Http\Controllers\Api\ChatbotController; // ✅ Import do Chatbot adicionado
+use App\Http\Controllers\Api\ChatbotController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,10 +17,10 @@ use App\Http\Controllers\Api\ChatbotController; // ✅ Import do Chatbot adicion
 // --- HOME & INSTITUCIONAL ---
 
 Route::get('/', function () {
-    // Busca apenas 3 imóveis destaque para a Home (Performance otimizada)
+    // ALTERAÇÃO: Busca 3 imóveis de forma aleatória (inRandomOrder)
+    // Isso garante que a seção de destaques mude a cada visita
     $properties = Property::where('is_visible', true)
-        ->where('is_featured', true)
-        ->latest()
+        ->inRandomOrder() // <--- Lógica de aleatoriedade
         ->take(3)
         ->get();
         
