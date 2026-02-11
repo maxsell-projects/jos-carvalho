@@ -17,10 +17,9 @@ use App\Http\Controllers\Api\ChatbotController;
 // --- HOME & INSTITUCIONAL ---
 
 Route::get('/', function () {
-    // ALTERAÇÃO: Busca 3 imóveis de forma aleatória (inRandomOrder)
-    // Isso garante que a seção de destaques mude a cada visita
+    // Busca 3 imóveis de forma aleatória para a vitrine
     $properties = Property::where('is_visible', true)
-        ->inRandomOrder() // <--- Lógica de aleatoriedade
+        ->inRandomOrder()
         ->take(3)
         ->get();
         
@@ -44,7 +43,13 @@ Route::post('/contactos/enviar', [ContactController::class, 'send'])->name('cont
 
 // --- PORTFÓLIO (IMÓVEIS) ---
 
-Route::get('/imoveis', [PropertyController::class, 'publicIndex'])->name('portfolio');
+// [CORREÇÃO]: A rota principal agora chama-se 'properties.index' para o buscador funcionar.
+Route::get('/imoveis', [PropertyController::class, 'publicIndex'])->name('properties.index');
+
+// Rota de redundância (Alias) caso o menu do site use 'portfolio'
+Route::get('/portfolio', [PropertyController::class, 'publicIndex'])->name('portfolio');
+
+// Detalhes do Imóvel
 Route::get('/imoveis/{property:slug}', [PropertyController::class, 'show'])->name('properties.show');
 
 
@@ -71,7 +76,6 @@ Route::get('/termos-e-condicoes', function () {
 
 // --- CHATBOT (AI Assistant) ---
 
-// Rota POST para processar as mensagens da IA
 Route::post('/chatbot/send', [ChatbotController::class, 'sendMessage'])->name('chatbot.send');
 
 
