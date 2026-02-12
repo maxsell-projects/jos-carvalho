@@ -51,7 +51,7 @@
                 {{-- Botão CTA (Private Office) --}}
                 <a href="{{ route('contact') }}" 
                    class="bg-brand-primary text-white px-6 py-3 rounded-sm uppercase text-[10px] font-bold tracking-[0.2em] hover:bg-brand-premium transition-all duration-300 shadow-md transform hover:-translate-y-0.5">
-                    Private Office
+                    CONTACTO
                 </a>
             </nav>
 
