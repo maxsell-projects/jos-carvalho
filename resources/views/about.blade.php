@@ -40,7 +40,7 @@
             <div class="lg:col-span-5 relative" data-aos="fade-right">
                 <div class="relative overflow-hidden aspect-[3/4] group">
                     {{-- PLACEHOLDER FOTO (Trocar pela foto oficial depois) --}}
-                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1974&auto=format&fit=crop" 
+                    <img src="{{ asset('img/jose.jpg') }}" 
                          alt="José Carvalho" 
                          class="w-full h-full object-cover grayscale transition-all duration-700 group-hover:grayscale-0">
                     
