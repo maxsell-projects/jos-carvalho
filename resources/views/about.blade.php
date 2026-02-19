@@ -45,7 +45,7 @@
                          class="w-full h-full object-cover grayscale transition-all duration-700 group-hover:grayscale-0">
                     
                     <div class="absolute bottom-0 left-0 bg-white p-6 max-w-[80%] border-t-4 border-brand-premium shadow-lg">
-                        <p class="font-display font-bold text-2xl text-brand-primary">15+ Anos</p>
+                        <p class="font-display font-bold text-2xl text-brand-primary">10+ Anos</p>
                         <p class="text-[10px] uppercase tracking-widest text-gray-400">De Experiência em Mercado de Luxo</p>
                     </div>
                 </div>
@@ -57,7 +57,7 @@
             <div class="lg:col-span-7 space-y-12">
                 <div data-aos="fade-up">
                     <h3 class="text-xs font-bold uppercase tracking-widest text-brand-cta mb-4">O Percurso</h3>
-                    <h2 class="text-4xl font-display font-bold text-brand-primary mb-8">Da Banca à Consultoria Exclusiva.</h2>
+                    <h2 class="text-4xl font-display font-bold text-brand-primary mb-8">De Investidor à Consultoria.</h2>
                     
                     <div class="prose prose-lg text-gray-500 font-light leading-relaxed space-y-6 text-justify font-sans">
                         <p>O meu nome é José Carvalho.</p>

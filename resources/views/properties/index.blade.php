@@ -12,7 +12,7 @@
             Portfólio Exclusivo
         </p>
         <h1 class="text-5xl md:text-7xl font-didot leading-tight">
-            Encontre o Seu <span class="italic text-brand-premium">Legado.</span>
+            Encontre o Seu <span class="italic text-brand-premium">Imóvel.</span>
         </h1>
     </div>
 </section>
