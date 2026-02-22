@@ -57,7 +57,7 @@
             <div class="lg:col-span-7 space-y-12">
                 <div data-aos="fade-up">
                     <h3 class="text-xs font-bold uppercase tracking-widest text-brand-cta mb-4">O Percurso</h3>
-                    <h2 class="text-4xl font-display font-bold text-brand-primary mb-8">De Investidor à Consultoria.</h2>
+                    <h2 class="text-4xl font-display font-bold text-brand-primary mb-8">Da Banca à Consultoria.</h2>
                     
                     <div class="prose prose-lg text-gray-500 font-light leading-relaxed space-y-6 text-justify font-sans">
                         <p>O meu nome é José Carvalho.</p>
