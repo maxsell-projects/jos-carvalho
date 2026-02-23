@@ -57,23 +57,25 @@
             <div class="lg:col-span-7 space-y-12">
                 <div data-aos="fade-up">
                     <h3 class="text-xs font-bold uppercase tracking-widest text-brand-cta mb-4">O Percurso</h3>
-                    <h2 class="text-4xl font-display font-bold text-brand-primary mb-8">Da Banca à Consultoria.</h2>
+                    <h2 class="text-4xl font-display font-bold text-brand-primary mb-8">De Investidor a Consultor</h2>
                     
                     <div class="prose prose-lg text-gray-500 font-light leading-relaxed space-y-6 text-justify font-sans">
                         <p>O meu nome é José Carvalho.</p>
                         
-                        <p>Antes de integrar o setor imobiliário, construí uma carreira sólida no setor financeiro, onde desenvolvi uma abordagem analítica orientada para a gestão de risco, leitura de dados e tomada de decisão estratégica.</p>
+                        <p>Antes de integrar a consultoria imobiliária, iniciei o meu percurso como investidor no setor imobiliário. Essa experiência permitiu-me compreender, na prática, as dinâmicas do mercado, a importância da análise criteriosa de oportunidades e o impacto que cada decisão tem na valorização e proteção do património.</p>
                         
-                        <p>Essa base permite-me hoje encarar cada imóvel não apenas como um bem físico, mas como um ativo patrimonial, com impacto direto na estabilidade financeira, no planeamento fiscal e na qualidade de vida de quem investe ou reside.</p>
+                        <p>A vivência enquanto investidor deu-me uma perspetiva real sobre risco, retorno e estratégia. Hoje, aplico essa mesma lógica na forma como acompanho cada cliente.</p>
                         
-                        <p>Ao longo desse percurso, especializei-me no acompanhamento de clientes High Net Worth, um contexto onde a discrição, o rigor e a eficiência não são diferenciais — são pressupostos essenciais.</p>
+                        <p>Cada imóvel é analisado não apenas como um bem físico, mas como um ativo patrimonial, com impacto direto na estabilidade financeira, no planeamento fiscal e na qualidade de vida de quem investe ou reside.</p>
                         
-                        <p>O meu trabalho inicia-se muito antes da primeira visita e prolonga-se para além da escritura. Assenta num processo estruturado, claro e antecipatório, que inclui o acompanhamento de processos de Golden Visa, planeamento fiscal e reinstalação de famílias em Portugal.</p>
+                        <p>Ao longo do meu percurso, especializei-me no acompanhamento de clientes de elevado património (High Net Worth), num contexto onde a discrição, o rigor e a eficiência são pressupostos essenciais.</p>
+                        
+                        <p>O meu trabalho inicia-se muito antes da primeira visita e prolonga-se para além da escritura. Assenta num processo estruturado, claro e antecipatório.</p>
                         
                         <p>Cada decisão é conduzida com método, transparência e visão de longo prazo.</p>
                         
                         <p class="font-medium text-brand-primary border-l-2 border-brand-premium pl-4">
-                            Mais do que intermediar imóveis, a minha função é proteger património, reduzir risco e assegurar processos bem conduzidos, à altura das expectativas de um mercado de exigência elevada.
+                            Mais do que intermediar imóveis, a minha função é proteger património, reduzir risco e assegurar processos conduzidos com profissionalismo, à altura das exigências de um mercado altamente competitivo.
                         </p>
                     </div>
                 </div>
