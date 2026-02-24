@@ -163,9 +163,6 @@
                                     <span class="text-[10px] font-bold uppercase tracking-widest text-brand-secondary">
                                         {{ $property->location ?? 'Portugal' }}
                                     </span>
-                                    <span class="text-[10px] text-gray-400 uppercase tracking-widest">
-                                        {{ $property->status === 'available' ? 'Disponível' : 'Reservado' }}
-                                    </span>
                                 </div>
 
                                 <h3 class="text-lg font-serif text-brand-primary mb-4 leading-tight group-hover:text-brand-cta transition-colors">
