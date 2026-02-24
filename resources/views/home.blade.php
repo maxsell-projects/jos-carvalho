@@ -234,7 +234,7 @@
                         </div>
                         <div class="space-y-1">
                             <label class="text-[10px] md:text-xs text-brand-premium uppercase tracking-widest ml-1">Telefone</label>
-                            <input type="tel" name="phone" class="w-full bg-transparent border-b border-white/40 py-2.5 md:py-3 text-white text-sm md:text-base focus:outline-none focus:border-brand-premium transition-colors placeholder-white/30" placeholder="+351 ...">
+                            <input type="tel" name="phone" class="w-full bg-transparent border-b border-white/40 py-2.5 md:py-3 text-white text-sm md:text-base focus:outline-none focus:border-brand-premium transition-colors placeholder-white/30" placeholder="+351 917 000 301">
                         </div>
                         <input type="hidden" name="subject" value="Lead Private Office (Off Market)">
                         

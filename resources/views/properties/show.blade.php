@@ -221,7 +221,7 @@
                                     $msg .= " (Ref: " . $property->reference_code . ")";
                                 }
                                 $encodedMsg = urlencode($msg);
-                                $whatsapp = $property->whatsapp_number ?? '351910000000'; // Default se não tiver no imóvel
+                                $whatsapp = $property->whatsapp_number ?? '351917000301'; // Default se não tiver no imóvel
                             @endphp
 
                             <a href="https://wa.me/{{ $whatsapp }}?text={{ $encodedMsg }}" target="_blank" class="block w-full border border-[#25D366] text-[#25D366] text-center py-4 text-xs font-bold uppercase tracking-widest hover:bg-[#25D366] hover:text-white transition duration-300 flex items-center justify-center gap-2 group">

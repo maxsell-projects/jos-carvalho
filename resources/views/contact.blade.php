@@ -118,7 +118,7 @@
                             <label class="block text-[10px] uppercase tracking-widest text-gray-400 mb-2 group-focus-within:text-brand-primary transition-colors">Telemóvel</label>
                             <input type="tel" name="phone" 
                                    class="w-full bg-gray-50 border-0 border-b border-gray-200 px-0 py-3 focus:ring-0 focus:border-brand-cta transition-colors placeholder-gray-300 text-brand-primary" 
-                                   placeholder="+351">
+                                   placeholder="+351 917 000 301">
                         </div>
                     </div>
 

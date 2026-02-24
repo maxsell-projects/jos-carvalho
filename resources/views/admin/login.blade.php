@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Private Office | José Carvalho</title>
-    
-    <link rel="icon" href="{{ asset('img/favicon.png') }}" type="image/png">
+    <link rel="icon" href="{{ asset('public/img/favicon.png') }}" type="image/png">
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     

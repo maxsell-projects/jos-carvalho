@@ -8,7 +8,7 @@
     <title>Backoffice | José Carvalho</title>
 
     {{-- FAVICON --}}
-    <link rel="icon" href="{{ asset('img/favicon.png') }}" type="image/png">
+    <link rel="icon" href="{{ asset('public/img/favicon.png') }}" type="image/png">
 
     {{-- ASSETS (Vite) --}}
     @vite(['resources/css/app.css', 'resources/js/app.js'])
