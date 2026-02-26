@@ -56,7 +56,7 @@
             </nav>
 
             {{-- MOBILE MENU BUTTON (Cor alterada para escuro) --}}
-            <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden text-brand-primary z-50 focus:outline-none">
+            <button aria-label="Abrir menu mobile" @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden text-brand-primary z-50 focus:outline-none">
                 <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path x-show="!mobileMenuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                     <path x-show="mobileMenuOpen" x-cloak stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />

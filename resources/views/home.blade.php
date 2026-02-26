@@ -48,7 +48,7 @@
                         {{-- Tipo --}}
                         <div>
                             <label class="block text-[10px] md:text-xs font-bold text-white uppercase tracking-wider mb-2">Tipo</label>
-                            <select name="type" class="w-full bg-white/90 border-0 text-gray-900 px-3 md:px-4 py-2.5 md:py-3 text-sm md:text-base focus:ring-2 focus:ring-brand-premium rounded-sm">
+                            <select aria-label="Tipo de Imóvel" name="type" class="w-full bg-white/90 border-0 text-gray-900 px-3 md:px-4 py-2.5 md:py-3 text-sm md:text-base focus:ring-2 focus:ring-brand-premium rounded-sm">
                                 <option value="">Todos</option>
                                 <option value="Apartamento">Apartamento</option>
                                 <option value="Moradia">Moradia</option>
@@ -86,7 +86,7 @@
     <div class="bg-brand-premium py-3 md:py-4 overflow-hidden relative z-20">
         <div class="whitespace-nowrap flex animate-marquee">
             @for($i = 0; $i < 10; $i++)
-                <span class="text-lg md:text-xl lg:text-2xl font-display font-bold text-white mx-6 md:mx-8 uppercase tracking-widest">
+                <span class="text-lg md:text-xl lg:text-2xl font-display font-bold text-brand-primary mx-6 md:mx-8 uppercase tracking-widest">
                     Investimento • Exclusividade • Legado •
                 </span>
             @endfor
@@ -352,6 +352,7 @@
                 <div class="bg-white border border-gray-200 shadow-lg overflow-hidden rounded-sm">
                     <div class="relative h-[220px] md:h-[280px] w-full bg-gray-100">
                         <iframe 
+                            title="Localização de José Carvalho Real Estate no Google Maps"
                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3181.769974591465!2d-7.927233823486338!3d37.0113823721867!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd0552d7e63b0a7b%3A0x6c6e752945281577!2sAv.%20Cidade%20de%20Hayward%206%2C%208000-170%20Faro!5e0!3m2!1spt-PT!2spt!4v1707436000000!5m2!1spt-PT!2spt" 
                             width="100%" 
                             height="100%" 

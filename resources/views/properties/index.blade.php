@@ -46,7 +46,7 @@
                         {{-- Tipo --}}
                         <div>
                             <label class="text-xs font-bold uppercase tracking-widest text-brand-primary mb-2 block">Tipo de Imóvel</label>
-                            <select name="type" class="w-full bg-gray-50 border border-gray-200 px-4 py-3 text-sm focus:outline-none focus:border-brand-cta text-gray-600">
+                            <select aria-label="Tipo de Imóvel" name="type" class="w-full bg-gray-50 border border-gray-200 px-4 py-3 text-sm focus:outline-none focus:border-brand-cta text-gray-600">
                                 <option value="">Todos os Tipos</option>
                                 <option value="Apartamento" {{ request('type') == 'Apartamento' ? 'selected' : '' }}>Apartamento</option>
                                 <option value="Moradia" {{ request('type') == 'Moradia' ? 'selected' : '' }}>Moradia / Villa</option>
@@ -120,7 +120,7 @@
                     {{-- Ordenação (Visual Only por enquanto) --}}
                     <div class="hidden md:flex items-center gap-2 text-xs uppercase tracking-widest text-gray-400">
                         <span>Ordenar por:</span>
-                        <select class="bg-transparent border-none text-brand-primary font-bold focus:ring-0 cursor-pointer">
+                        <select aria-label="Ordenar Resultados" class="bg-transparent border-none text-brand-primary font-bold focus:ring-0 cursor-pointer">
                             <option>Mais Recentes</option>
                             <option>Preço (Maior)</option>
                             <option>Preço (Menor)</option>

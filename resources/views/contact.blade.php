@@ -82,6 +82,7 @@
                 {{-- Mapa --}}
                 <div class="w-full h-64 bg-gray-200 border border-white shadow-lg overflow-hidden grayscale hover:grayscale-0 transition duration-1000">
                     <iframe 
+                        title="Localização do Atelier em Lisboa"
                         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3111.458962657448!2d-9.166316924294065!3d38.75317797175496!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd1932d80c326087%3A0x400ebbde49036d0!2sR.%20Fernando%20Lopes-Gra%C3%A7a%208A%2C%201600-067%20Lisboa!5e0!3m2!1spt-PT!2spt!4v1700000000000!5m2!1spt-PT!2spt" 
                         width="100%" 
                         height="100%" 
@@ -131,7 +132,7 @@
 
                     <div class="group">
                         <label class="block text-[10px] uppercase tracking-widest text-gray-400 mb-2 group-focus-within:text-brand-primary transition-colors">Motivo do Contacto</label>
-                        <select name="subject" class="w-full bg-gray-50 border-0 border-b border-gray-200 px-0 py-3 focus:ring-0 focus:border-brand-cta transition-colors text-brand-primary cursor-pointer">
+                        <select aria-label="Motivo do Contacto" name="subject" class="w-full bg-gray-50 border-0 border-b border-gray-200 px-0 py-3 focus:ring-0 focus:border-brand-cta transition-colors text-brand-primary cursor-pointer">
                             <option value="Comprar Imóvel">Interesse em Comprar</option>
                             <option value="Vender Imóvel">Vender a minha Propriedade</option>
                             <option value="Investimento">Consultoria de Investimento</option>

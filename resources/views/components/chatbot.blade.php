@@ -85,7 +85,7 @@
     </div>
 
     {{-- BOTÃO FLUTUANTE (TRIGGER) --}}
-    <button @click="open = !open" 
+    <button aria-label="Abrir assistente virtual" @click="open = !open" 
         class="bg-brand-primary hover:bg-brand-charcoal text-white p-4 rounded-full shadow-2xl transition-all hover:scale-105 flex items-center justify-center group relative border-2 border-brand-premium/20">
         <span x-show="!open" class="absolute top-0 right-0 flex h-3 w-3">
             <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-premium opacity-75"></span>
